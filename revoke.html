@@ -22,7 +22,7 @@
       <script src="https://www.gstatic.com/charts/loader.js"></script>
       
       <script>
-        bootbox.alert("按下確認後進行刪除", function(){ 
+        if(confirm("確認是否進行刪除?")==true){ 
           try{
             fetch("https://splinenotify1.herokuapp.com/api/line/revoke?id="+getQueryParams(window.location.search).id, {"method": "GET",}).then(function(r){
                 return r.json();
@@ -49,7 +49,10 @@
                window.location.href='https://spvouchernotify.github.io/';
              });
           }
-        });
+        }
+        else{
+          window.location.href='https://spvouchernotify.github.io/';
+        }
         function getQueryParams(qs) {
           qs = qs.split('+').join(' ');
           var params = {},tokens,re = /[?&]?([^=]+)=([^&]*)/g;
