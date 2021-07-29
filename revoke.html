@@ -22,32 +22,34 @@
       <script src="https://www.gstatic.com/charts/loader.js"></script>
       
       <script>
-        try{
-          fetch("https://splinenotify1.herokuapp.com/api/line/revoke?id="+getQueryParams(window.location.search).id, {"method": "GET",}).then(function(r){
-              return r.json();
-          }).then(function(jo){
-            try{
-              if(jo['status']=='success'){
-                bootbox.alert("刪除成功！！", function(){ 
-                  window.location.href='https://spvouchernotify.github.io/';
+        bootbox.alert("按下確認後進行刪除", function(){ 
+          try{
+            fetch("https://splinenotify1.herokuapp.com/api/line/revoke?id="+getQueryParams(window.location.search).id, {"method": "GET",}).then(function(r){
+                return r.json();
+            }).then(function(jo){
+              try{
+                if(jo['status']=='success'){
+                  bootbox.alert("刪除成功！！", function(){ 
+                    window.location.href='https://spvouchernotify.github.io/';
+                  });
+                }
+                else{
+                  bootbox.alert("刪除失敗:"+jo['error'], function(){ 
+                    window.location.href='https://spvouchernotify.github.io/';
+                  });
+                }
+              }catch (e) {
+                bootbox.alert("刪除失敗...", function(){ 
+                    window.location.href='https://spvouchernotify.github.io/';
                 });
               }
-              else{
-                bootbox.alert("刪除失敗:"+jo['error'], function(){ 
-                  window.location.href='https://spvouchernotify.github.io/';
-                });
-              }
-            }catch (e) {
-              bootbox.alert("刪除失敗...", function(){ 
-                  window.location.href='https://spvouchernotify.github.io/';
-              });
-            }
-          });
-        }catch(e){
-           bootbox.alert("刪除失敗...", function(){ 
-             window.location.href='https://spvouchernotify.github.io/';
-           });
-        }
+            });
+          }catch(e){
+             bootbox.alert("刪除失敗...", function(){ 
+               window.location.href='https://spvouchernotify.github.io/';
+             });
+          }
+        });
         function getQueryParams(qs) {
           qs = qs.split('+').join(' ');
           var params = {},tokens,re = /[?&]?([^=]+)=([^&]*)/g;
@@ -68,7 +70,6 @@
             <p></p>
             <p></p>
             <p class="float-right">
-               <a href="#">Back to top</a>
             </p>
             <p></p>
             <p></p>
