@@ -22,9 +22,9 @@
       <script src="https://www.gstatic.com/charts/loader.js"></script>
       
       <script>
-        document.getElementById('register-notify').addEventListener("click", function() {
-                 window.location.href='https://notify-bot.line.me/oauth/authorize?response_type=code&client_id=sLyrRXfG5u9ylWfloqhvHV&redirect_uri=https://spvouchernotify.github.io/join.html&scope=notify&state=NO_STATE';
-        });
+        function register() {
+          window.location.href='https://notify-bot.line.me/oauth/authorize?response_type=code&client_id=sLyrRXfG5u9ylWfloqhvHV&redirect_uri=https://spvouchernotify.github.io/join.html&scope=notify&state=NO_STATE';
+        };
       </script>
    </head>
    <body>
@@ -40,7 +40,7 @@
                <h1 class="h3 mb-3 font-weight-normal">蝦皮折價券通知</h1>
                
                <p></p>
-               <button class="btn btn-lg btn-info btn-block" id="register-notify" type="button">點此註冊line推播</button>
+               <button class="btn btn-lg btn-info btn-block" id="register-notify" onclick="register();" type="button">點此註冊line推播</button>
                <p class="mt-2 mb-3 text-muted">使用LINE Notify 功能來推播通知，完全不會讀取任何個人資料，請放心。</p>
                <p class="mt-5 mb-3 text-muted"><a href="https://notify-bot.line.me/zh_TW/" target="_blank">點我了解關於LINE Notify</a></p>
             </div>
