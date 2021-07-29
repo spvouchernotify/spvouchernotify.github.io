@@ -22,26 +22,36 @@
       <script src="https://www.gstatic.com/charts/loader.js"></script>
       
       <script>
-        fetch("https://splinenotify1.herokuapp.com/api/line/join?state=NO_STATE&code="+code, {"method": "GET",}).then(function(r){
-            return r.json();
-        }).then(function(jo){
-          try{
-            if(jo['status']=='success'){
-              bootbox.alert("加入成功！！", function(){ 
-                window.location.href='https://spvouchernotify.github.io/';
+        window.onload = async function() {
+          fetch("https://splinenotify1.herokuapp.com/api/line/join?state=NO_STATE&code="+getQueryParams(window.location.href).code, {"method": "GET",}).then(function(r){
+              return r.json();
+          }).then(function(jo){
+            try{
+              if(jo['status']=='success'){
+                bootbox.alert("加入成功！！", function(){ 
+                  window.location.href='https://spvouchernotify.github.io/';
+                });
+              }
+              else{
+                bootbox.alert("加入失敗:"+jo['error'], function(){ 
+                  window.location.href='https://spvouchernotify.github.io/';
+                });
+              }
+            }catch (e) {
+              bootbox.alert("加入失敗...", function(){ 
+                  window.location.href='https://spvouchernotify.github.io/';
               });
             }
-            else{
-              bootbox.alert("加入失敗:"+jo['error'], function(){ 
-                window.location.href='https://spvouchernotify.github.io/';
-              });
-            }
-          }catch (e) {
-            bootbox.alert("加入失敗...", function(){ 
-                window.location.href='https://spvouchernotify.github.io/';
-            });
+          });
+        };
+        function getQueryParams(qs) {
+          qs = qs.split('+').join(' ');
+          var params = {},tokens,re = /[?&]?([^=]+)=([^&]*)/g;
+          while (tokens = re.exec(qs)) {
+            params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
           }
-        });
+          return params;
+        }
       </script>
    </head>
    <body>
