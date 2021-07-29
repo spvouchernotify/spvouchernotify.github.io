@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-TW">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+      <meta name="description" content="">
+      <meta name="author" content="sp">
+      <meta name="Keywords" content="">
+      <title>蝦皮折價券通知</title>
+      <!-- Bootstrap core CSS -->
+      <link href="bootstrap.min.css" rel="stylesheet">
+      <!-- Favicons -->
+      <link rel="icon" href="https://cf.shopee.tw/file/4760f74ce2403a5e161cb95f37e23f16">
+      <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
+      <meta name="theme-color" content="#FCCC04">
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="popper.min.js"></script>
+      <script src="bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.8.2/countUp.min.js"></script>
+      <script src="https://www.gstatic.com/charts/loader.js"></script>
+      
+      <script>
+        document.getElementById('register-notify').addEventListener("click", function() {
+                 window.location.href='https://notify-bot.line.me/oauth/authorize?response_type=code&client_id=sLyrRXfG5u9ylWfloqhvHV&redirect_uri=https://spvouchernotify.github.io/join.html&scope=notify&state=NO_STATE';
+        });
+      </script>
+   </head>
+   <body>
+      <!-- Google Tag Manager (noscript) -->
+      <noscript>
+         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TF8MJ4W" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+      </noscript>
+      <!-- End Google Tag Manager (noscript) -->
+      <main role="main">
+         <section class="jumbotron text-center">
+            <div class="container" style="max-width:500px">
+               <img class="mb-4" src="https://cf.shopee.tw/file/38c0acf7ef5bf7b86542e1fbf1f3df2b" alt="" width="72" height="72">
+               <h1 class="h3 mb-3 font-weight-normal">蝦皮折價券通知</h1>
+               
+               <p></p>
+               <button class="btn btn-lg btn-info btn-block" id="register-notify" type="button">點此註冊line推播</button>
+               <p class="mt-2 mb-3 text-muted">使用LINE Notify 功能來推播通知，完全不會讀取任何個人資料，請放心。</p>
+               <p class="mt-5 mb-3 text-muted"><a href="https://notify-bot.line.me/zh_TW/" target="_blank">點我了解關於LINE Notify</a></p>
+            </div>
+         </section>
+         
+      </main>
+      <footer class="text-muted">
+         <div class="container">
+            <p></p>
+            <p></p>
+            <p class="float-right">
+               <a href="#">Back to top</a>
+            </p>
+            <p></p>
+            <p></p>
+         </div>
+      </footer>
+   </body>
+</html>
