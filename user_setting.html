@@ -60,14 +60,14 @@
               if(jo['status']=='success'){
                  if(jo['notify']==1){
                    console.log('switch off');
-                     document.getElementById('display-switchnotify').innerHTML='<input type="checkbox" data-toggle="switchbutton" id="switch-notify" data-toggle="switchbutton" data-width="100">';
+                     document.getElementById('display-notifyswitch').innerHTML='<input type="checkbox" data-toggle="switchbutton" id="switch-notify" data-toggle="switchbutton" data-width="100">';
                   
                      //$('#switch-notify').get(0).switchButton('off');
                      //document.getElementById("switch-notify").checked = false;
                      //document.getElementById('switch-notify').switchButton('off');
                  }
                  else{
-                   document.getElementById('display-switchnotify').innerHTML='<input type="checkbox" data-toggle="switchbutton" id="switch-notify" checked data-toggle="switchbutton" data-width="100">';
+                   document.getElementById('display-notifyswitch').innerHTML='<input type="checkbox" data-toggle="switchbutton" id="switch-notify" checked data-toggle="switchbutton" data-width="100">';
                  }
                  
                  //document.getElementById('switch-notify').switchButton('enable');
