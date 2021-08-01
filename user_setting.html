@@ -48,7 +48,12 @@
       <script>
         window.onload=Initalize;
          
-        fetch("https://splinemanager1.herokuapp.com/api/line/notify/get?id="+getQueryParams(window.location.search).id, {
+        
+         
+         
+        function Initalize(){
+          setTimeout(function(){
+             fetch("https://splinemanager1.herokuapp.com/api/line/notify/get?id="+getQueryParams(window.location.search).id, {
             "headers": {
               "accept": "*/*",
               "content-type":"application/json"
@@ -60,17 +65,15 @@
               if(jo['status']=='success'){
                  if(jo['notify']==1){
                    console.log('switch off');
-                     document.getElementById('display-notifyswitch').innerHTML='<input type="checkbox" data-toggle="switchbutton" id="switch-notify" data-toggle="switchbutton" data-width="100">';
+                     //document.getElementById('display-notifyswitch').innerHTML='<input type="checkbox" data-toggle="switchbutton" id="switch-notify" data-toggle="switchbutton" data-width="100">';
                   
-                     //$('#switch-notify').get(0).switchButton('off');
+                     $('#switch-notify').get(0).switchButton('off');
                      //document.getElementById("switch-notify").checked = false;
-                     //document.getElementById('switch-notify').switchButton('off');
-                 }
-                 else{
-                   document.getElementById('display-notifyswitch').innerHTML='<input type="checkbox" data-toggle="switchbutton" id="switch-notify" checked data-toggle="switchbutton" data-width="100">';
+                     document.getElementById('switch-notify').switchButton('off');
                  }
                  
-                 //document.getElementById('switch-notify').switchButton('enable');
+                 document.getElementById('revoke-notify').disabled='';
+                 document.getElementById('switch-notify').switchButton('enable');
               }
               else{
                 bootbox.alert("載入設定失敗", function(){ 
@@ -78,10 +81,8 @@
                 });
               }
             });
-         
-         
-        function Initalize(){
-          document.getElementById('revoke-notify').disabled='';
+          },50);
+          
         }
         function revoke() {
         
@@ -150,9 +151,9 @@
                <!--<div class="custom-control custom-switch custom-switch-xl">
                  <input type="checkbox" class="custom-control-input" id="switch-notify" checked>
                </div>-->
-               <div id="display-notifyswitch">
-               
-               </div>
+              
+               <input type="checkbox" data-toggle="switchbutton" id="switch-notify" checked data-toggle="switchbutton" data-width="100">
+              
                <p></p>
                <button class="btn btn-lg btn-danger btn-block" id="revoke-notify" onclick="" disabled type="button">註銷推播通知</button>
             </div>
