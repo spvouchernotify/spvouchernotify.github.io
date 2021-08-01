@@ -54,7 +54,7 @@
         
         }
         $(function() {
-          $('#switch-event').change(function() {
+          $('#switch-notify').change(function() {
             document.getElementById('switch-notify').switchButton('disable');
             var sw=0;
             if($(this).prop('checked')==true){
@@ -89,8 +89,7 @@
              
           })
         })
-        function notify() {
-        }
+
         function getQueryParams(qs) {
           qs = qs.split('+').join(' ');
           var params = {},tokens,re = /[?&]?([^=]+)=([^&]*)/g;
