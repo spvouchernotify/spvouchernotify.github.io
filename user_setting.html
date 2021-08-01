@@ -9,7 +9,6 @@
       <title>蝦皮折價券通知</title>
       <!-- Bootstrap core CSS -->
       <link href="bootstrap.min.css" rel="stylesheet">
-      <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">
       <!-- Favicons -->
       <link rel="icon" href="https://cf.shopee.tw/file/4760f74ce2403a5e161cb95f37e23f16">
       <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
@@ -21,10 +20,8 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.8.2/countUp.min.js"></script>
       
-      <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
       <script src="https://www.gstatic.com/charts/loader.js"></script>
       <style>
-      </style>
         .custom-switch.custom-switch-xl .custom-control-label {
           padding-left: 4rem;
           padding-bottom: 2.5rem;
@@ -45,6 +42,7 @@
         .custom-switch.custom-switch-xl .custom-control-input:checked ~ .custom-control-label::after {
           transform: translateX(calc(2.5rem - 0.25rem));
         }
+      </style>
       <script>
         window.onload=Initalize;
         function Initalize(){
@@ -60,14 +58,10 @@
               if(jo['status']=='success'){
                  if(jo['notify']==1){
                    console.log('switch off');
-                   //$('#switch-notify').load(function(){
-                     $('#switch-notify').get(0).switchButton('off');
-                     document.getElementById("switch-notify").checked = false;
-                     document.getElementById('switch-notify').switchButton('off');
-                   //});
+                   document.getElementById("switch-notify").checked = false;
                  }
                  document.getElementById('revoke-notify').disabled='';
-                 document.getElementById('switch-notify').switchButton('enable');
+                 document.getElementById('switch-notify').disabled='';
               }
               else{
                 bootbox.alert("載入設定失敗", function(){ 
@@ -81,7 +75,7 @@
         }
         $(function() {
           $('#switch-notify').change(function() {
-            document.getElementById('switch-notify').switchButton('disable');
+            document.getElementById('switch-notify').disabled='disabled';
             var sw=0;
             if($(this).prop('checked')==true){
               sw=0;
@@ -103,13 +97,13 @@
                 else{
                   bootbox.alert("設定失敗，請稍後再試", function(){ });
                   if(sw==1){
-                    document.getElementById('switch-notify').switchButton('on');
+                    document.getElementById("switch-notify").checked = true;
                   }
                   else{
-                    document.getElementById('switch-notify').switchButton('off');
+                    document.getElementById("switch-notify").checked = false;
                   }
                 }
-                document.getElementById('switch-notify').switchButton('enable');
+                document.getElementById("switch-notify").disabled = '';
             });
              
              
@@ -140,10 +134,9 @@
                
                <p></p>
                <h5>通知音提醒:</h5>
-               <!--<div class="custom-control custom-switch custom-switch-xl">
+               <div class="custom-control custom-switch custom-switch-xl">
                  <input type="checkbox" class="custom-control-input" id="switch-notify" checked>
-               </div>-->
-               <input type="checkbox" data-toggle="switchbutton" id="switch-notify" data-toggle="switchbutton" checked disabled data-width="100">
+               </div>
                <p></p>
                <button class="btn btn-lg btn-danger btn-block" id="revoke-notify" onclick="" disabled type="button">註銷推播通知</button>
             </div>
