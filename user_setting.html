@@ -9,6 +9,7 @@
       <title>蝦皮折價券通知</title>
       <!-- Bootstrap core CSS -->
       <link href="bootstrap.min.css" rel="stylesheet">
+      <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">
       <!-- Favicons -->
       <link rel="icon" href="https://cf.shopee.tw/file/4760f74ce2403a5e161cb95f37e23f16">
       <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
@@ -20,8 +21,10 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.8.2/countUp.min.js"></script>
       
+      <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
       <script src="https://www.gstatic.com/charts/loader.js"></script>
       <style>
+      </style>
         .custom-switch.custom-switch-xl .custom-control-label {
           padding-left: 4rem;
           padding-bottom: 2.5rem;
@@ -42,11 +45,10 @@
         .custom-switch.custom-switch-xl .custom-control-input:checked ~ .custom-control-label::after {
           transform: translateX(calc(2.5rem - 0.25rem));
         }
-      </style>
       <script>
         window.onload=Initalize;
-        function Initalize(){
-          fetch("https://splinemanager1.herokuapp.com/api/line/notify/get?id="+getQueryParams(window.location.search).id, {
+         
+        fetch("https://splinemanager1.herokuapp.com/api/line/notify/get?id="+getQueryParams(window.location.search).id, {
             "headers": {
               "accept": "*/*",
               "content-type":"application/json"
@@ -58,10 +60,17 @@
               if(jo['status']=='success'){
                  if(jo['notify']==1){
                    console.log('switch off');
-                   document.getElementById("switch-notify").checked = false;
+                     document.getElementById('display-switchnotify').innerHTML='<input type="checkbox" data-toggle="switchbutton" id="switch-notify" data-toggle="switchbutton" data-width="100">';
+                  
+                     //$('#switch-notify').get(0).switchButton('off');
+                     //document.getElementById("switch-notify").checked = false;
+                     //document.getElementById('switch-notify').switchButton('off');
                  }
-                 document.getElementById('revoke-notify').disabled='';
-                 document.getElementById('switch-notify').disabled='';
+                 else{
+                   document.getElementById('display-switchnotify').innerHTML='<input type="checkbox" data-toggle="switchbutton" id="switch-notify" checked data-toggle="switchbutton" data-width="100">';
+                 }
+                 
+                 //document.getElementById('switch-notify').switchButton('enable');
               }
               else{
                 bootbox.alert("載入設定失敗", function(){ 
@@ -69,13 +78,17 @@
                 });
               }
             });
+         
+         
+        function Initalize(){
+          document.getElementById('revoke-notify').disabled='';
         }
         function revoke() {
         
         }
         $(function() {
           $('#switch-notify').change(function() {
-            document.getElementById('switch-notify').disabled='disabled';
+            document.getElementById('switch-notify').switchButton('disable');
             var sw=0;
             if($(this).prop('checked')==true){
               sw=0;
@@ -97,13 +110,13 @@
                 else{
                   bootbox.alert("設定失敗，請稍後再試", function(){ });
                   if(sw==1){
-                    document.getElementById("switch-notify").checked = true;
+                    document.getElementById('switch-notify').switchButton('on');
                   }
                   else{
-                    document.getElementById("switch-notify").checked = false;
+                    document.getElementById('switch-notify').switchButton('off');
                   }
                 }
-                document.getElementById("switch-notify").disabled = '';
+                document.getElementById('switch-notify').switchButton('enable');
             });
              
              
@@ -134,8 +147,11 @@
                
                <p></p>
                <h5>通知音提醒:</h5>
-               <div class="custom-control custom-switch custom-switch-xl">
+               <!--<div class="custom-control custom-switch custom-switch-xl">
                  <input type="checkbox" class="custom-control-input" id="switch-notify" checked>
+               </div>-->
+               <div id="display-notifyswitch">
+               
                </div>
                <p></p>
                <button class="btn btn-lg btn-danger btn-block" id="revoke-notify" onclick="" disabled type="button">註銷推播通知</button>
