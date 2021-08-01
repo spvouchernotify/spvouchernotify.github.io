@@ -24,7 +24,7 @@
       <script>
         if(confirm("確認是否進行刪除?")==true){ 
           try{
-            fetch("https://splinenotify1.herokuapp.com/api/line/revoke?id="+getQueryParams(window.location.search).id, {"method": "GET",}).then(function(r){
+            fetch("https://splinemanager1.herokuapp.com/api/line/revoke?id="+getQueryParams(window.location.search).id, {"method": "GET",}).then(function(r){
                 return r.json();
             }).then(function(jo){
               try{
