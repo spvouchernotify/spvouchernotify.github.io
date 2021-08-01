@@ -27,7 +27,7 @@
       <script>
         window.onload=Initalize;
         function Initalize(){
-          fetch("https://splinemanager1.herokuapp.com/api/line/notify/get?id=016d03e32ffe2c1e01023c0086657a5cbb", {
+          fetch("https://splinemanager1.herokuapp.com/api/line/notify/get?id="+getQueryParams(window.location.search).id, {
             "headers": {
               "accept": "*/*",
               "content-type":"application/json"
@@ -48,11 +48,20 @@
                   window.location.href='https://spvouchernotify.github.io/';
                 });
               }
+            });
         }
         function revoke() {
           
         }
         function notify() {
+        }
+        function getQueryParams(qs) {
+          qs = qs.split('+').join(' ');
+          var params = {},tokens,re = /[?&]?([^=]+)=([^&]*)/g;
+          while (tokens = re.exec(qs)) {
+            params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+          }
+          return params;
         }
       </script>
    </head>
