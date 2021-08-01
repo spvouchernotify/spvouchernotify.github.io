@@ -25,6 +25,30 @@
       <script src="https://www.gstatic.com/charts/loader.js"></script>
       
       <script>
+        window.onload=Initalize;
+        function Initalize(){
+          fetch("https://splinemanager1.herokuapp.com/api/line/notify/get?id=016d03e32ffe2c1e01023c0086657a5cbb", {
+            "headers": {
+              "accept": "*/*",
+              "content-type":"application/json"
+            },
+            "method": "GET"
+            }).then(function(r){
+              return r.json()
+            }).then(function(jo){
+              if(jo['status']=='success'){
+                 if(jo['notify']==1){
+                   document.getElementById('switch-notify').switchButton('off');
+                 }
+                 document.getElementById('revoke-notify').disabled='disabled';
+                 document.getElementById('switch-notify').switchButton('enable');
+              }
+              else{
+                bootbox.alert("載入設定失敗", function(){ 
+                  window.location.href='https://spvouchernotify.github.io/';
+                });
+              }
+        }
         function revoke() {
           
         }
