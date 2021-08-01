@@ -23,28 +23,7 @@
       
       <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
       <script src="https://www.gstatic.com/charts/loader.js"></script>
-      <style>
-      </style>
-        .custom-switch.custom-switch-xl .custom-control-label {
-          padding-left: 4rem;
-          padding-bottom: 2.5rem;
-        }
-
-        .custom-switch.custom-switch-xl .custom-control-label::before {
-          height: 2.5rem;
-          width: calc(4rem + 0.75rem);
-          border-radius: 5rem;
-        }
-
-        .custom-switch.custom-switch-xl .custom-control-label::after {
-          width: calc(2.5rem - 4px);
-          height: calc(2.5rem - 4px);
-          border-radius: calc(4rem - (2.5rem / 2));
-        }
-
-        .custom-switch.custom-switch-xl .custom-control-input:checked ~ .custom-control-label::after {
-          transform: translateX(calc(2.5rem - 0.25rem));
-        }
+      
       <script>
         window.onload=Initalize;
          
@@ -81,7 +60,7 @@
                 });
               }
             });
-          },50);
+          },20);
           
         }
         function revoke() {
@@ -148,9 +127,6 @@
                
                <p></p>
                <h5>通知音提醒:</h5>
-               <!--<div class="custom-control custom-switch custom-switch-xl">
-                 <input type="checkbox" class="custom-control-input" id="switch-notify" checked>
-               </div>-->
               
                <input type="checkbox" data-toggle="switchbutton" id="switch-notify" checked data-toggle="switchbutton" data-width="100">
               
