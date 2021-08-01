@@ -38,6 +38,8 @@
             }).then(function(jo){
               if(jo['status']=='success'){
                  if(jo['notify']==1){
+                   console.log('switch off');
+                   $('#switch-notify').get(0).switchButton('off');
                    document.getElementById('switch-notify').switchButton('off');
                  }
                  document.getElementById('revoke-notify').disabled='';
