@@ -64,7 +64,36 @@
           
         }
         function revoke() {
-        
+          bootbox.confirm("確認是否註銷推播通知？", function(result){ 
+            if(result==true){
+              try{
+                fetch("https://splinemanager1.herokuapp.com/api/line/revoke?id="+getQueryParams(window.location.search).id, {"method": "GET",}).then(function(r){
+                  return r.json();
+                }).then(function(jo){
+                  try{
+                    if(jo['status']=='success'){
+                      bootbox.alert("刪除成功！！", function(){ 
+                        window.location.href='https://spvouchernotify.github.io/';
+                      });
+                    }
+                    else{
+                      bootbox.alert("刪除失敗:"+jo['error'], function(){ 
+                       // window.location.href='https://spvouchernotify.github.io/';
+                      });
+                    }
+                  }catch (e) {
+                    bootbox.alert("刪除失敗...", function(){ 
+                     // window.location.href='https://spvouchernotify.github.io/';
+                    });
+                  }
+                });
+              }catch(e){
+                 bootbox.alert("刪除失敗...", function(){ 
+                   //window.location.href='https://spvouchernotify.github.io/';
+                 });
+              }
+            }
+          });
         }
         $(function() {
           $('#switch-notify').change(function() {
@@ -114,11 +143,6 @@
       </script>
    </head>
    <body>
-      <!-- Google Tag Manager (noscript) -->
-      <noscript>
-         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TF8MJ4W" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-      </noscript>
-      <!-- End Google Tag Manager (noscript) -->
       <main role="main">
          <section class="jumbotron text-center">
             <div class="container" style="max-width:500px">
@@ -131,7 +155,7 @@
                <input type="checkbox" data-toggle="switchbutton" id="switch-notify" checked data-toggle="switchbutton" data-width="100">
               
                <p></p>
-               <button class="btn btn-lg btn-danger btn-block" id="revoke-notify" onclick="" disabled type="button">註銷推播通知</button>
+               <button class="btn btn-lg btn-danger btn-block" id="revoke-notify" onclick="revoke();" disabled type="button">註銷推播通知</button>
             </div>
          </section>
          
