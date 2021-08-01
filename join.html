@@ -23,7 +23,7 @@
       
       <script>
         try{
-          fetch("https://splinenotify1.herokuapp.com/api/line/join?state=NO_STATE&code="+getQueryParams(window.location.search).code, {"method": "GET",}).then(function(r){
+          fetch("https://splinemanager1.herokuapp.com/api/line/join?state=NO_STATE&code="+getQueryParams(window.location.search).code, {"method": "GET",}).then(function(r){
               return r.json();
           }).then(function(jo){
             try{
