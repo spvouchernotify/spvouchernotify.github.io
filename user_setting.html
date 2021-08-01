@@ -40,7 +40,7 @@
                  if(jo['notify']==1){
                    document.getElementById('switch-notify').switchButton('off');
                  }
-                 document.getElementById('revoke-notify').disabled='disabled';
+                 document.getElementById('revoke-notify').disabled='';
                  document.getElementById('switch-notify').switchButton('enable');
               }
               else{
@@ -51,8 +51,44 @@
             });
         }
         function revoke() {
-          
+        
         }
+        $(function() {
+          $('#switch-event').change(function() {
+            document.getElementById('switch-notify').switchButton('disable');
+            var sw=0;
+            if($(this).prop('checked')==true){
+              sw=0;
+            }
+            else{
+              sw=1;
+            }
+            fetch("https://splinemanager1.herokuapp.com/api/line/notify/set?id="+getQueryParams(window.location.search).id+"&notify="+sw, {
+              "headers": {
+                "accept": "*/*",
+                "content-type":"application/json"
+              },
+              "method": "GET"
+              }).then(function(r){
+                return r.json()
+              }).then(function(jo){
+                if(jo['status']=='success'){
+                }
+                else{
+                  bootbox.alert("設定失敗，請稍後再試", function(){ });
+                  if(sw==1){
+                    document.getElementById('switch-notify').switchButton('on');
+                  }
+                  else{
+                    document.getElementById('switch-notify').switchButton('off');
+                  }
+                }
+                document.getElementById('switch-notify').switchButton('enable');
+            });
+             
+             
+          })
+        })
         function notify() {
         }
         function getQueryParams(qs) {
