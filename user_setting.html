@@ -111,7 +111,7 @@
         $(function() {
           $('#switch-notify').change(function() {
             document.getElementById('switch-notify').switchButton('disable');
-             document.getElementById('switch-notify-part').switchButton('disable');
+            document.getElementById('switch-notify-part').switchButton('disable');
             var sw=0;
             if($(this).prop('checked')==true){
               sw=0;
@@ -133,7 +133,9 @@
                     document.getElementById('switch-notify-part').switchButton('enable');
                   }
                   else{
+                     document.getElementById('switch-notify-part').switchButton('enable');
                      document.getElementById('switch-notify-part').switchButton('off',true);
+                     document.getElementById('switch-notify-part').switchButton('disable');
                   }
                 }
                 else{
