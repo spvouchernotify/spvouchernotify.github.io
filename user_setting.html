@@ -10,6 +10,7 @@
       <!-- Bootstrap core CSS -->
       <link href="bootstrap.min.css" rel="stylesheet">
       <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="jtoggler.styles.css">
       <!-- Favicons -->
       <link rel="icon" href="https://cf.shopee.tw/file/4760f74ce2403a5e161cb95f37e23f16">
       <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
@@ -23,6 +24,7 @@
       
       <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
       <script src="https://www.gstatic.com/charts/loader.js"></script>
+      <script src="jtoggler.js"></script>
       
       <script>
         window.onload=Initalize;
@@ -129,8 +131,22 @@
             });
              
              
-          })
-        })
+          });
+        });
+         
+        $(document).ready(() => {
+            $('.jtoggler').jtoggler();
+            $(document).on('jt:toggled:multi', function (event, target) {
+                console.log(event, target);
+                console.info($(target).parent().index());
+                var notify=this; 
+                this.disabled= 'disabled';
+                setTimeout(function(){
+                   this.disabled='';
+                },2000);
+                
+            });
+        });
 
         function getQueryParams(qs) {
           qs = qs.split('+').join(' ');
@@ -155,6 +171,9 @@
                <input type="checkbox" data-toggle="switchbutton" id="switch-notify" checked data-toggle="switchbutton" data-width="100">
               
                <p></p>
+               <input type="checkbox" class="jtoggler" data-jtmulti-state>
+               <p></p>
+               
                <button class="btn btn-lg btn-danger btn-block" id="revoke-notify" onclick="revoke();" disabled type="button">註銷推播通知</button>
             </div>
          </section>
