@@ -140,9 +140,9 @@
                 console.log(event, target);
                 console.info($(target).parent().index());
                 var notify=this; 
-                this.disabled= 'disabled';
+                document.getElementById('snotify2').disabled= 'disabled';
                 setTimeout(function(){
-                   this.disabled='';
+                   document.getElementById('snotify2').disabled='';
                 },2000);
                 
             });
@@ -171,7 +171,7 @@
                <input type="checkbox" data-toggle="switchbutton" id="switch-notify" checked data-toggle="switchbutton" data-width="100">
               
                <p></p>
-               <input type="checkbox" class="jtoggler" data-jtmulti-state>
+               <input type="checkbox" class="jtoggler" id="snotify2" data-jtmulti-state>
                <p></p>
                
                <button class="btn btn-lg btn-danger btn-block" id="revoke-notify" onclick="revoke();" disabled type="button">註銷推播通知</button>
