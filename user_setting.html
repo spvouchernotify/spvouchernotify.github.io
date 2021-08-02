@@ -44,13 +44,24 @@
               return r.json()
             }).then(function(jo){
               if(jo['status']=='success'){
-                 if(jo['notify']==1){
+                 if(jo['notify']==2){
                    console.log('switch off');
                      //document.getElementById('display-notifyswitch').innerHTML='<input type="checkbox" data-toggle="switchbutton" id="switch-notify" data-toggle="switchbutton" data-width="100">';
-                  
-                     $('#switch-notify').get(0).switchButton('off');
+                     document.getElementById('switch-notify').switchButton('off',true);
+                     document.getElementById('switch-notify-part').switchButton('off',true);
                      //document.getElementById("switch-notify").checked = false;
-                     document.getElementById('switch-notify').switchButton('off');
+                     //document.getElementById('switch-notify').switchButton('off');
+                     document.getElementById('switch-notify-part').switchButton('disable');
+                 }
+                 else if(jo['notify']==1){
+                     document.getElementById('switch-notify').switchButton('on',true);
+                     document.getElementById('switch-notify-part').switchButton('on',true);
+                     document.getElementById('switch-notify-part').switchButton('enable');
+                 }
+                 else{
+                     document.getElementById('switch-notify').switchButton('on',true);
+                     document.getElementById('switch-notify-part').switchButton('off',true);
+                     document.getElementById('switch-notify-part').switchButton('enable');
                  }
                  
                  document.getElementById('revoke-notify').disabled='';
@@ -100,12 +111,55 @@
         $(function() {
           $('#switch-notify').change(function() {
             document.getElementById('switch-notify').switchButton('disable');
+             document.getElementById('switch-notify-part').switchButton('disable');
             var sw=0;
             if($(this).prop('checked')==true){
               sw=0;
             }
             else{
+              sw=2;
+            }
+            fetch("https://splinemanager1.herokuapp.com/api/line/notify/set?id="+getQueryParams(window.location.search).id+"&notify="+sw, {
+              "headers": {
+                "accept": "*/*",
+                "content-type":"application/json"
+              },
+              "method": "GET"
+              }).then(function(r){
+                return r.json()
+              }).then(function(jo){
+                if(jo['status']=='success'){
+                  if(sw ==0){
+                    document.getElementById('switch-notify-part').switchButton('enable');
+                  }
+                  else{
+                     document.getElementById('switch-notify-part').switchButton('off',true);
+                  }
+                }
+                else{
+                  bootbox.alert("設定失敗，請稍後再試", function(){ });
+                  if(sw==0){
+                    document.getElementById('switch-notify').switchButton('off',true);
+                  }
+                  else{
+                    document.getElementById('switch-notify').switchButton('on',true);
+                     document.getElementById('switch-notify-part').switchButton('enable');
+                  }
+                } 
+                document.getElementById('switch-notify').switchButton('enable');
+            });
+          });
+           
+           
+          $('#switch-notify-part').change(function() {
+            document.getElementById('switch-notify').switchButton('disable');
+            document.getElementById('switch-notify-part').switchButton('disable');
+            var sw=0;
+            if($(this).prop('checked')==true){
               sw=1;
+            }
+            else{
+              sw=0;
             }
             fetch("https://splinemanager1.herokuapp.com/api/line/notify/set?id="+getQueryParams(window.location.search).id+"&notify="+sw, {
               "headers": {
@@ -121,33 +175,20 @@
                 else{
                   bootbox.alert("設定失敗，請稍後再試", function(){ });
                   if(sw==1){
-                    document.getElementById('switch-notify').switchButton('on');
+                    document.getElementById('switch-notify-part').switchButton('off',true);
                   }
                   else{
-                    document.getElementById('switch-notify').switchButton('off');
+                    document.getElementById('switch-notify-part').switchButton('on',true);
                   }
                 }
                 document.getElementById('switch-notify').switchButton('enable');
+                document.getElementById('switch-notify-part').switchButton('enable');
             });
              
              
           });
         });
          
-        $(document).ready(() => {
-            $('.jtoggler').jtoggler();
-            $(document).on('jt:toggled:multi', function (event, target) {
-                console.log(event, target);
-                console.info($(target).parent().index());
-                var notify=this; 
-                document.getElementById('snotify2').disabled= 'disabled';
-                setTimeout(function(){
-                   document.getElementById('snotify2').disabled='';
-                },2000);
-                
-            });
-        });
-
         function getQueryParams(qs) {
           qs = qs.split('+').join(' ');
           var params = {},tokens,re = /[?&]?([^=]+)=([^&]*)/g;
@@ -171,7 +212,9 @@
                <input type="checkbox" data-toggle="switchbutton" id="switch-notify" checked data-toggle="switchbutton" data-width="100">
               
                <p></p>
-               <input type="checkbox" class="jtoggler" id="snotify2" data-jtmulti-state>
+               <h5>寧靜模式(23:00~7:00時段關閉通知音):</h5>
+              
+               <input type="checkbox" data-toggle="switchbutton" id="switch-notify-part" checked data-toggle="switchbutton" data-width="100">
                <p></p>
                
                <button class="btn btn-lg btn-danger btn-block" id="revoke-notify" onclick="revoke();" disabled type="button">註銷推播通知</button>
