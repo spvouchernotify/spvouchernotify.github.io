@@ -34,7 +34,7 @@
          
         function Initalize(){
           setTimeout(function(){
-             fetch("https://splinemanager1.herokuapp.com/api/line/notify/get?id="+getQueryParams(window.location.search).id, {
+             fetch("https://splinemanager1.herokuapp.com/api/line/notify/get?t="+new Date().getTime()+"&id="+getQueryParams(window.location.search).id, {
             "headers": {
               "accept": "*/*",
               "content-type":"application/json"
@@ -119,7 +119,7 @@
             else{
               sw=2;
             }
-            fetch("https://splinemanager1.herokuapp.com/api/line/notify/set?id="+getQueryParams(window.location.search).id+"&notify="+sw, {
+            fetch("https://splinemanager1.herokuapp.com/api/line/notify/set?t="+new Date().getTime()+"&id="+getQueryParams(window.location.search).id+"&notify="+sw, {
               "headers": {
                 "accept": "*/*",
                 "content-type":"application/json"
@@ -163,7 +163,7 @@
             else{
               sw=0;
             }
-            fetch("https://splinemanager1.herokuapp.com/api/line/notify/set?id="+getQueryParams(window.location.search).id+"&notify="+sw, {
+            fetch("https://splinemanager1.herokuapp.com/api/line/notify/set?t="+new Date().getTime()+"&id="+getQueryParams(window.location.search).id+"&notify="+sw, {
               "headers": {
                 "accept": "*/*",
                 "content-type":"application/json"
