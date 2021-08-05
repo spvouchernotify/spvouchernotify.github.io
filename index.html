@@ -23,7 +23,13 @@
       
       <script>
         function register() {
-          window.location.href='https://notify-bot.line.me/oauth/authorize?response_type=code&client_id=sLyrRXfG5u9ylWfloqhvHV&redirect_uri=https://spvouchernotify.github.io/join.html&scope=notify&state=NO_STATE';
+          document.getElementById("register-notify").disabled='disabled';
+          fetch("https://splinemanager1.herokuapp.com/api/line/apikey/get").then(function(r){
+            return r.json();
+          }).then(function(jo){
+            window.location.href='https://notify-bot.line.me/oauth/authorize?response_type=code&client_id='+jo['CLIENT_ID']+'&redirect_uri=https://spvouchernotify.github.io/join.html&scope=notify&state=NO_STATE';
+          });
+          
         };
       </script>
    </head>
