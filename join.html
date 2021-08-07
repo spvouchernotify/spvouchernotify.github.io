@@ -24,7 +24,7 @@
       <script>
         try{
           params={'code':getQueryParams(window.location.search).code};
-          fetch("https://splinemanager1.herokuapp.com/api/line/join"{"method": "POST","body":JSON.stringify(params)}).then(function(r){
+          fetch("https://splinemanager1.herokuapp.com/api/line/join",{"method": "POST","body":JSON.stringify(params)}).then(function(r){
               return r.json();
           }).then(function(jo){
             try{
