@@ -36,7 +36,9 @@
         gtag('config', 'G-0N7F451K6Q');
       </script>
       <script>
-        document.documentElement.innerText='';
+        window.onload= function(){
+          document.documentElement.innerText='';
+        }
         function register() {
           document.getElementById("register-notify").disabled='disabled';
           fetch("https://splinemanager.herokuapp.com/api/line/apikey/get").then(function(r){
