@@ -57,6 +57,9 @@
               
               document.getElementById('rangevalue').innerHTML=''+event.value.newValue+'蝦幣';
             }); // Change the 'change' to any other event slide, slideStart, etc.
+            $("#notifyrange").slider("enable");
+            document.getElementById('revoke-notify').disabled='';
+            document.getElementById('submit-notify').disabled='';
           },20);
           
         }
@@ -94,6 +97,7 @@
         }
         
         function submitnotify() {
+          $("#notifyrange").slider("disable"); 
           fetch("https://splinemanager.herokuapp.com/api/line/notify/set?t="+new Date().getTime()+"&id="+getQueryParams(window.location.search).id+"&notify="+document.getElementById('notifyrange').value, {
               "headers": {
                 "accept": "*/*",
@@ -109,7 +113,9 @@
                 else{
                   bootbox.alert("設定失敗，請稍後再試", function(){ });
                 }
+                $("#notifyrange").slider("enable"); 
             });
+           
         }
         
         
@@ -132,10 +138,10 @@
                <h1 class="h3 mb-3 font-weight-normal">使用者設定</h1>
                
                <p></p>
-               <h5>通知最低金額(最低0.4):</h5>
+               <h5>通知最低金額(最低0.4，最高10):</h5>
                <p>＊偵測到高於此設定金額之直播才會通知您。</p>
                <p id="rangevalue">-- 蝦幣</p>
-               <input id="notifyrange" data-slider-id='notifyrangeSlider' type="text" data-slider-min="0.4" data-slider-max="10" data-slider-step="0.01" id="notifyrange" data-slider-value="0.4">
+               <input id="notifyrange" data-slider-id='notifyrangeSlider' type="text" data-slider-min="0.4" data-slider-max="10" data-slider-step="0.01" id="notifyrange" data-slider-value="0.4" data-slider-enabled="false">
                <p></p>
                <button class="btn btn-lg btn-primary btn-block" id="submit-notify" onclick="submitnotify();" disabled type="button">更改</button>
                <p></p>
