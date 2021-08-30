@@ -53,14 +53,13 @@
                   window.location.href='https://spvouchernotify.github.io/';
                 });
               }
+              $('#notifyrange').slider({'value':jo['notify']}).on('change', function(event){
+                document.getElementById('rangevalue').innerHTML=''+event.value.newValue+'蝦幣';
+              }); // Change the 'change' to any other event slide, slideStart, etc.
+              $("#notifyrange").slider("enable");
+              document.getElementById('revoke-notify').disabled='';
+              document.getElementById('submit-notify').disabled='';
             });
-            $('#notifyrange').slider({'value':jo['notify']}).on('change', function(event){
-              
-              document.getElementById('rangevalue').innerHTML=''+event.value.newValue+'蝦幣';
-            }); // Change the 'change' to any other event slide, slideStart, etc.
-            $("#notifyrange").slider("enable");
-            document.getElementById('revoke-notify').disabled='';
-            document.getElementById('submit-notify').disabled='';
           },20);
           
         }
