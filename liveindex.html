@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-TW">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+      <meta name="description" content="">
+      <meta name="author" content="sp">
+      <meta name="Keywords" content="蝦皮,shopee voucher,蝦皮折扣,蝦皮折價券,蝦皮折扣碼,蝦皮優惠,折價券,折扣碼,折價券攻略,折扣碼攻略,優惠攻略">
+      <title>蝦皮折價券通知</title>
+      <!-- Bootstrap core CSS -->
+      <link href="bootstrap.min.css" rel="stylesheet">
+      <!-- Favicons -->
+      <link rel="icon" href="https://cf.shopee.tw/file/4760f74ce2403a5e161cb95f37e23f16">
+      <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
+      <meta name="theme-color" content="#FCCC04">
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="popper.min.js"></script>
+      <script src="bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.8.2/countUp.min.js"></script>
+      <script src="https://www.gstatic.com/charts/loader.js"></script>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-0N7F451K6Q"></script>
+      <!-- Google Tag Manager -->
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-KDF2WR7');</script>
+      <!-- End Google Tag Manager -->
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-0N7F451K6Q');
+      </script>
+      <script>
+        function register() {
+          document.getElementById("register-notify").disabled='disabled';
+          fetch("https://splinemanager.herokuapp.com/api/line/live/apikey/get").then(function(r){
+            return r.json();
+          }).then(function(jo){
+            window.location.href='https://notify-bot.line.me/oauth/authorize?response_type=code&client_id='+jo['CLIENT_ID']+'&redirect_uri=https://spvouchernotify.github.io/livejoin.html&scope=notify&state=NO_STATE';
+          });
+          
+        };
+      </script>
+   </head>
+   <body>
+      <!-- Google Tag Manager (noscript) -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KDF2WR7"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
+      <main role="main">
+         <section class="jumbotron text-center">
+            <div class="container" style="max-width:500px">
+               <img class="mb-4" src="https://cf.shopee.tw/file/4760f74ce2403a5e161cb95f37e23f16" alt="" width="72" height="72">
+               <h1 class="h3 mb-3 font-weight-normal">蝦皮折價券通知(非官方)</h1>
+               <p></p>
+               <button class="btn btn-lg btn-info btn-block" id="register-notify" onclick="register();" type="button">點此註冊line推播</button>
+               <p></p>
+                 <p class="mt-2 mb-3 text-muted">發展原由：因為蝦皮官網活動頁面非常多，其中有些網頁單一頁面內容非常長，在瀏覽時非常容易錯過自己想使用的折扣碼，故發展此通知功能來幫助大家盡可能不會錯過折扣碼，只要一有發現新折扣碼會盡量馬上發出通知</p>
+                 <p class="mt-2 mb-3 text-muted">因為蝦皮活動頁面眾多，要處理的資料量也不小，有時會造成部分折扣碼通知時間有些延遲，如有延誤通知而錯過折價券的話，敬請見諒。</p>
+                 <p class="mt-2 mb-3 text-muted">本服務為免費提供大家使用，預計未來會加入部分廣告贊助推播，也歡迎賣家進行贊助(評估完成會再公告)</p>
+                 <p class="mt-2 mb-3 text-muted">本服務使用 LINE Notify 功能來進行推播通知，LINE Notify屬於單向通知通能，完全不會取得關於您任何個人LINE的資料，<a href="https://notify-bot.line.me/zh_TW/" target="_blank">點我了解關於LINE Notify</a></p>
+               <p></p>
+               <div class="card-deck">
+                 <div class="card">
+                   <img src="images/m2.jpg" loading="lazy" class="card-img" alt="Responsive image">
+                 </div>
+                 <div class="card">
+                   <img src="images/m1.jpg" loading="lazy" class="card-img" alt="Responsive image">
+                 </div>
+               </div>  
+            </div>
+         </section>
+         <section class="text-center" style="background-color: #fff;">
+            <div class="container">
+               <div class="accordion" id="accordionExample">
+                  <div class="card text-center">
+                     <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                           <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                              <h5>使用說明</h5>
+                           </button>
+                        </h2>
+                     </div>
+                     <div id="collapseOne" class="collapse text-center" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body text-center">
+                           <div class="text-center">
+                              <p></p>
+                              <h5>請先加入LINE Notify 官方帳號設為好友(官方帳號連結<a href="https://page.line.me/?accountId=linenotify" target="_blank">點此</a>)</h5>
+                              <img src="images/sp1.jpg" loading="lazy" class="img-fluid w-50" alt="Responsive image">
+                              <p></p>
+                              <h5>加入完成後，回到主頁，點選頁面右上角的“新增好友”按鈕圖示</h5>
+                              <p></p>
+                              <img src="images/sp2.jpg" loading="lazy" class="img-fluid w-50" alt="Responsive image">
+                              <p></p>
+                              <h5>進入加好友頁面，點選“建立群組”</h5>
+                              <p></p>
+                              <img src="images/sp3.jpg" loading="lazy" class="img-fluid w-50" alt="Responsive image">
+                              <p></p>
+                              <h5>將LINE Notify官方好友勾選加入群組並按“下一步”</h5>
+                              <p></p>
+                              <img src="images/sp4.jpg" loading="lazy" class="img-fluid w-50" alt="Responsive image">
+                              <p></p>
+                              <h5>設定你想要的群組名稱與圖片後按下“建立”按鈕</h5>
+                              <p></p>
+                              <img src="images/sp5.jpg" loading="lazy" class="img-fluid w-50" alt="Responsive image">
+                              <p></p>
+                              <h5>建立完成後回到此頁面，並按下註冊“line推播”按鈕</h5>
+                              <p></p>
+                              <img src="images/sp6.jpg" loading="lazy" class="img-fluid w-50" alt="Responsive image">
+                              <p></p>
+                              <h5>這時候會出現要你選擇接收通知的聊天室，選擇剛才建立的聊天室群組並按下“同意並連動”按鈕</h5>
+                              <p></p>
+                              <img src="images/sp7.jpg" loading="lazy" class="img-fluid w-50" alt="Responsive image">
+                              <p></p>
+                              <h5>接下來就等系統網頁跳轉後出現加入成功訊息即可關閉視窗(在跳轉途中請勿關閉視窗以免造成加入失敗)</h5>
+                              <p></p>
+                              <img src="images/sp8.jpg" loading="lazy" class="img-fluid w-50" alt="Responsive image">
+                              <p></p>
+                              <h5>這時候再進入剛設定好的聊天室群組看到設定成功通知，表示通知已設定完成</h5>
+                              <p></p>
+                              <img src="images/sp9.jpg" loading="lazy" class="img-fluid w-50" alt="Responsive image">
+                              <p></p>
+                              <h5>如果要設定通知音開關功能或是取消之後的推播，可以至剛開始註冊推播時所發送的連結進入網頁設定</h5>
+                              <p></p>
+                              <img src="images/sp10.jpg" loading="lazy" class="img-fluid w-50" alt="Responsive image">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section> 
+      </main>
+      <footer class="text-muted">
+         <div class="container">
+            <p></p>
+            <p></p>
+            <p class="float-right">
+               <a href="#">Back to top</a>
+            </p>
+            <p></p>
+            <p></p>
+         </div>
+      </footer>
+   </body>
+</html>
