@@ -67,7 +67,7 @@
           bootbox.confirm("確認是否註銷推播通知？", function(result){ 
             if(result==true){
               try{
-                fetch("https://splinemanager.herokuapp.com/api/line/revoke?id="+getQueryParams(window.location.search).id, {"method": "GET",}).then(function(r){
+                fetch("https://splinemanager.herokuapp.com/api/line/live/revoke?id="+getQueryParams(window.location.search).id, {"method": "GET",}).then(function(r){
                   return r.json();
                 }).then(function(jo){
                   try{
@@ -98,7 +98,7 @@
         
         function submitnotify() {
           $("#notifyrange").slider("disable"); 
-          fetch("https://splinemanager.herokuapp.com/api/line/notify/set?t="+new Date().getTime()+"&id="+getQueryParams(window.location.search).id+"&notify="+document.getElementById('notifyrange').value, {
+          fetch("https://splinemanager.herokuapp.com/api/line/live/notify/set?t="+new Date().getTime()+"&id="+getQueryParams(window.location.search).id+"&notify="+document.getElementById('notifyrange').value, {
               "headers": {
                 "accept": "*/*",
                 "content-type":"application/json"
