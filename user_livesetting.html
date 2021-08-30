@@ -46,6 +46,7 @@
             }).then(function(jo){
               if(jo['status']=='success'){
                  document.getElementById('notifyrange').value=jo['notify'];
+                 document.getElementById('rangevalue').innerHTML=''+jo['notify']+'蝦幣';
               }
               else{
                 bootbox.alert("載入設定失敗", function(){ 
@@ -53,7 +54,7 @@
                 });
               }
             });
-            $('#notifyrange').slider().on('change', function(event){
+            $('#notifyrange').slider({'value':jo['notify'}).on('change', function(event){
               
               document.getElementById('rangevalue').innerHTML=''+event.value.newValue+'蝦幣';
             }); // Change the 'change' to any other event slide, slideStart, etc.
