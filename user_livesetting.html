@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-TW">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+      <meta name="description" content="">
+      <meta name="author" content="sp">
+      <meta name="Keywords" content="">
+      <title>蝦皮折價券通知</title>
+      <!-- Bootstrap core CSS -->
+      <link href="bootstrap.min.css" rel="stylesheet">
+      <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="jtoggler.styles.css">
+      <!-- Favicons -->
+      <link rel="icon" href="https://cf.shopee.tw/file/4760f74ce2403a5e161cb95f37e23f16">
+      <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
+      <meta name="theme-color" content="#FCCC04">
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="popper.min.js"></script>
+      <script src="bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.8.2/countUp.min.js"></script>
+      
+      <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
+      <script src="https://www.gstatic.com/charts/loader.js"></script>
+      <script src="jtoggler.js"></script>
+      
+      <script>
+        window.onload=Initalize;
+         
+        
+         
+         
+        function Initalize(){
+          setTimeout(function(){
+             fetch("https://splinemanager.herokuapp.com/api/line/live/notify/get?t="+new Date().getTime()+"&id="+getQueryParams(window.location.search).id, {
+            "headers": {
+              "accept": "*/*",
+              "content-type":"application/json"
+            },
+            "method": "GET"
+            }).then(function(r){
+              return r.json()
+            }).then(function(jo){
+              if(jo['status']=='success'){
+                 document.getElementById('notifyrange').value=jo['notify'];
+              }
+              else{
+                bootbox.alert("載入設定失敗", function(){ 
+                  window.location.href='https://spvouchernotify.github.io/';
+                });
+              }
+            });
+          },20);
+          
+        }
+        function revoke() {
+          bootbox.confirm("確認是否註銷推播通知？", function(result){ 
+            if(result==true){
+              try{
+                fetch("https://splinemanager.herokuapp.com/api/line/revoke?id="+getQueryParams(window.location.search).id, {"method": "GET",}).then(function(r){
+                  return r.json();
+                }).then(function(jo){
+                  try{
+                    if(jo['status']=='success'){
+                      bootbox.alert("刪除成功！！", function(){ 
+                        window.location.href='https://spvouchernotify.github.io/';
+                      });
+                    }
+                    else{
+                      bootbox.alert("刪除失敗:"+jo['error'], function(){ 
+                       // window.location.href='https://spvouchernotify.github.io/';
+                      });
+                    }
+                  }catch (e) {
+                    bootbox.alert("刪除失敗...", function(){ 
+                     // window.location.href='https://spvouchernotify.github.io/';
+                    });
+                  }
+                });
+              }catch(e){
+                 bootbox.alert("刪除失敗...", function(){ 
+                   //window.location.href='https://spvouchernotify.github.io/';
+                 });
+              }
+            }
+          });
+        }
+        
+        function submitnotify() {
+          fetch("https://splinemanager.herokuapp.com/api/line/notify/set?t="+new Date().getTime()+"&id="+getQueryParams(window.location.search).id+"&notify="+document.getElementById('notifyrange').value, {
+              "headers": {
+                "accept": "*/*",
+                "content-type":"application/json"
+              },
+              "method": "GET"
+              }).then(function(r){
+                return r.json()
+              }).then(function(jo){
+                if(jo['status']=='success'){
+                  bootbox.alert("設定成功", function(){ });
+                }
+                else{
+                  bootbox.alert("設定失敗，請稍後再試", function(){ });
+                }
+            });
+        }
+        
+        $('#notifyrange').slider().on('change', function(event){
+            document.getElementById('rangevalue').innerHTML=''+event.value+'蝦幣';
+        }); // Change the 'change' to any other event slide, slideStart, etc.
+         
+        function getQueryParams(qs) {
+          qs = qs.split('+').join(' ');
+          var params = {},tokens,re = /[?&]?([^=]+)=([^&]*)/g;
+          while (tokens = re.exec(qs)) {
+            params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+          }
+          return params;
+        }
+      </script>
+   </head>
+   <body>
+      <main role="main">
+         <section class="jumbotron text-center">
+            <div class="container" style="max-width:500px">
+               <img class="mb-4" src="https://cf.shopee.tw/file/4760f74ce2403a5e161cb95f37e23f16" alt="" width="72" height="72">
+               <h1 class="h3 mb-3 font-weight-normal">使用者設定</h1>
+               
+               <p></p>
+               <h5>通知最低金額(最低0.4):</h5>
+               <p>＊偵測到高於此設定金額之直播才會通知您。</p>
+               <p id="rangevalue"></p>
+               <input type="range" class="form-range" min="0.4" max="10" step="0.01" id="notifyrange">
+               
+               <button class="btn btn-lg btn-primary btn-block" id="submit-notify" onclick="submitnotify();" disabled type="button">更改</button>
+               <p></p>
+               
+               
+               <button class="btn btn-lg btn-danger btn-block" id="revoke-notify" onclick="revoke();" disabled type="button">註銷推播通知</button>
+            </div>
+         </section>
+         
+      </main>
+      <footer class="text-muted">
+         <div class="container">
+            <p></p>
+            <p></p>
+            <p class="float-right">
+               <a href="#">Back to top</a>
+            </p>
+            <p></p>
+            <p></p>
+         </div>
+      </footer>
+   </body>
+</html>
