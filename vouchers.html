@@ -69,6 +69,7 @@
           async function loadvoucher() {
               var finish = 0;
               var reroute = await GetRoute();
+              document.getElementById('loading-progress-text').innerHTML='正在獲取列表．．．';
 
               fetch('https://spfarmwater' + reroute + '-' + '1' + '.herokuapp.com/vouchers/api/voucher/list/get?t='+new Date().getTime(), {
                   body: null,
@@ -114,6 +115,7 @@
                       }).then(() => {
                           count_progress_finish++;
                           var percent_progress=Math.round(count_progress_finish/(promise_arr.length+1)*90)+10;
+                          document.getElementById('loading-progress-text').innerHTML='取得 '+site+' ．．．';
                           document.getElementById('loading-progress').style.width=''+percent_progress+'%';
                           document.getElementById('loading-progress').innerHTML=''+percent_progress+'%';
                       }));//promise
@@ -192,6 +194,7 @@
             <div class="container">
                <div id="voucher-current">
                   <div class="progress bg-secondary">
+                     <div id="loading-progress-text"></div>
                      <div id="loading-progress" class="progress-bar progress-bar-striped active" role="progressbar"
                           aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
                         0%
