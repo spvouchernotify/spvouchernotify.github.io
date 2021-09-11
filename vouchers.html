@@ -137,9 +137,9 @@
                       
                       ban_HTML=ban_HTML+'<h1 class="h5 mt-3 mb-0 font-weight-normal"><strong>'+json['title']+'(<a href="https://shopee.tw/m/'+json['url']+'" target="_blank">'+json['url']+'</a>)</strong></h1>';
                       ban_HTML=ban_HTML+'<table class="table table-striped mb-5"><thead><tr>';
-                      ban_HTML=ban_HTML+'<th scope="col">折價券資料</th><th scope="col">折價券資訊</th><th scope="col">可折抵商品</th></tr></thead>';
+                      ban_HTML=ban_HTML+'<th scope="col">折價券資料</th><th scope="col">折價券資訊</th><th scope="col">可折抵商品</th><th scope="col">詳細資訊</th></tr></thead>';
                       ban_HTML=ban_HTML+'<tbody>';
-                      
+                      var v_index=0;
                       json['voucher'].forEach(function(item){
                         vou_HTML='';
                         var i_arr=item['info'].split(',');
@@ -153,7 +153,24 @@
                           vou_HTML=vou_HTML+'<tr>';
                         }
                          
-                        vou_HTML=vou_HTML+'<th scope="row">'+i_arr[0]+'<br>'+i_arr[2]+'</th><td align="center" valign="center"><a href="'+item['info_url']+'" target="_blank">查看</a></td><td align="center" valign="center"><a href="'+item['search_url']+'" target="_blank">查看</a></td></tr>';
+                        vou_HTML=vou_HTML+'<th scope="row">'+i_arr[0]+'<br>'+i_arr[2]+'</th><td align="center" valign="center"><button class="btn btn-link" type="button" onclick=" window.open(\''+item['info_url']+'\',\'_blank\');">查看</button></td><td align="center" valign="center"><button class="btn btn-link" type="button" onclick=" window.open(\''+item['search_url']+'\',\'_blank\');">查看</button></td>';
+                        vou_HTML=vou_HTML+'<td align="center" valign="center"><button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse'+json['url']+'-'+v_index+'s'+'">展開</button></td>';
+                        vou_HTML=vou_HTML+'</tr>';
+                        
+                        
+                        
+//                         if(new Date().getTime()/1000<=item['starttime']){
+//                           vou_HTML=vou_HTML+'<tr class="table-info">';
+//                         }else if(item['reedom']==true){
+//                           vou_HTML=vou_HTML+'<tr class="table-danger">';
+//                         }else if(item['endtime']-(new Date().getTime()/1000)<60*60){
+//                           vou_HTML=vou_HTML+'<tr class="table-warning">';
+//                         }else{
+//                           vou_HTML=vou_HTML+'<tr>';
+//                         }
+                        vou_HTML=vou_HTML+'<tr>';
+                        vou_HTML=vou_HTML+'<td colspan="4" style="padding:0!important;"><div class="accordian-body collapse" id="collapse'+json['url']+'-'+v_index+'s'+'"><div style="margin:5%;">'+item['info'].split(',')[1]+'<br>'+item['terms']+'</div></div></td></tr>';
+                        v_index=v_index+1;
                         ban_HTML=ban_HTML+vou_HTML;
                         voucher_data.push(item);
                         c_display++;
