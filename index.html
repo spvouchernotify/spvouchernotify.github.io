@@ -33,6 +33,7 @@
       <script>
 
           var voucher_data=[];
+          
           //var sub = Math.floor(Math.random() * 2) + 1;
           var sub = 1;
           async function GetRoute() {
@@ -69,7 +70,8 @@
           async function loadvoucher() {
               var finish = 0;
               var reroute = await GetRoute();
-              document.getElementById('loading-progress-text').innerHTML='正在獲取列表．．．';
+              var voucher_num=0;
+              document.getElementById('loading-progress-text').innerHTML='正在取得列表．．．';
 
               fetch('https://spfarmwater' + reroute + '-' + '1' + '.herokuapp.com/vouchers/api/voucher/list/get?t='+new Date().getTime(), {
                   body: null,
@@ -88,7 +90,8 @@
                   var count_progress_finish=0;
                   var C_HTML;
                   var update_time=jo['updatetime'];
-                  C_HTML='<h5>更新時間：'+new Date(update_time*1000)+'</h5><p></p><div class="accordion" id="accordionExample">';
+                  document.getElementById('loading-progress-text').innerHTML='正在取得 '+jo['data']+' 個活動頁面內容．．．';
+                  C_HTML='<div class="accordion" id="accordionExample">';
                   var promise_arr=[];
                   var page_arr=[];
 
@@ -140,6 +143,7 @@
                       ban_HTML=ban_HTML+'<th scope="col">折價券資料</th><th scope="col">折價券資訊</th><th scope="col">可折抵商品</th><th scope="col">詳細資訊</th></tr></thead>';
                       ban_HTML=ban_HTML+'<tbody>';
                       var v_index=0;
+                      voucher_num=voucher_num+json['voucher'].length;
                       json['voucher'].forEach(function(item){
                         vou_HTML='';
                         var i_arr=item['info'].split(',');
@@ -186,6 +190,7 @@
                       }
                   });
                   localStorage['origin']=JSON.stringify(jo);
+                  C_HTML='<h5>更新時間：'+new Date(update_time*1000)+'</h5><p></p><h5>當前活動頁面數：'+jo.length+'，當前折扣碼數量：'+voucher_num+'</h5><p></p>'+C_HTML;
                   C_ELEMENT.innerHTML=C_HTML+'</div>';
 
                  
