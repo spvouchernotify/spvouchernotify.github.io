@@ -108,7 +108,7 @@
                               query_str=query_str+'&site'+i+'='+site_arr[i]['url'];
                           }
                           query_str=query_str+'&nums='+site_arr.length;
-                          json=fetch('https://spfarmwater' + reroute + '-' + '1' + '.herokuapp.com/multipagevouchers?t=' + update_time + query_str, {
+                          json=fetch('https://spfarmwater' + reroute + '-' + '1' + '.herokuapp.com/vouchers/api/voucher/page/batch/get?t=' + update_time + query_str, {
                                 body: null,
                                 headers: {
                                     'content-type': 'application/json'
