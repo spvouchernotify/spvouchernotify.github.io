@@ -129,7 +129,7 @@
                       }).then(() => {
                           count_progress_finish++;
                           var percent_progress=Math.round(count_progress_finish/(promise_arr.length+1)*90)+10;
-                          document.getElementById('loading-progress-text').innerHTML='取得頁面資料（共'+jo['data'].length+'個） ．．．';
+                          document.getElementById('loading-progress-text').innerHTML='取得頁面資料（共'+jo.length+'個） ．．．';
                           document.getElementById('loading-progress').style.width=''+percent_progress+'%';
                           document.getElementById('loading-progress').innerHTML=''+percent_progress+'%';
                       }));//promise
