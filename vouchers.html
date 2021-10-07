@@ -95,6 +95,7 @@
                   var promise_arr=[];
                   var page_arr=[];
                   var page_num=0;
+                  var error_loadig=false;
 
                   jo=jo['data'];
                   page_num=jo.length;
@@ -203,7 +204,11 @@
                       }
                   });
                   localStorage['origin']=JSON.stringify(jo);
-                  C_HTML='<h5>更新時間：'+new Date(update_time*1000)+'</h5><p></p><h5>當前活動頁面數：'+page_num+'，當前折扣碼數量：'+voucher_num+'</h5><p></p>'+C_HTML;
+                  C_HTML='';
+                  if(error_loading==true){
+                     C_HTML=C_HTML+'<h5><font color="#FF0000">有部分資料未正常載入，請刷新頁面重新載入一次</font></h5><p></p>';
+                  }
+                  C_HTML=C_HTML+'<h5>更新時間：'+new Date(update_time*1000)+'</h5><p></p><h5>當前活動頁面數：'+page_num+'，當前折扣碼數量：'+voucher_num+'</h5><p></p>'+C_HTML;
                   C_ELEMENT.innerHTML=C_HTML+'</div>';
 
                  
