@@ -94,8 +94,10 @@
                   C_HTML='<div class="accordion" id="accordionExample">';
                   var promise_arr=[];
                   var page_arr=[];
+                  var page_num=0;
 
                   jo=jo['data'];
+                  page_num=jo.length;
                   var jo_sep=[];
                   while(jo.length){
                       jo_sep.push(jo.splice(0,10));
@@ -129,7 +131,7 @@
                       }).then(() => {
                           count_progress_finish++;
                           var percent_progress=Math.round(count_progress_finish/(promise_arr.length+1)*90)+10;
-                          document.getElementById('loading-progress-text').innerHTML='取得頁面資料（共'+jo.length+'個） ．．．';
+                          document.getElementById('loading-progress-text').innerHTML='取得頁面資料（共'+page_num+'個） ．．．';
                           document.getElementById('loading-progress').style.width=''+percent_progress+'%';
                           document.getElementById('loading-progress').innerHTML=''+percent_progress+'%';
                       }));//promise
@@ -201,7 +203,7 @@
                       }
                   });
                   localStorage['origin']=JSON.stringify(jo);
-                  C_HTML='<h5>更新時間：'+new Date(update_time*1000)+'</h5><p></p><h5>當前活動頁面數：'+jo.length+'，當前折扣碼數量：'+voucher_num+'</h5><p></p>'+C_HTML;
+                  C_HTML='<h5>更新時間：'+new Date(update_time*1000)+'</h5><p></p><h5>當前活動頁面數：'+page_num+'，當前折扣碼數量：'+voucher_num+'</h5><p></p>'+C_HTML;
                   C_ELEMENT.innerHTML=C_HTML+'</div>';
 
                  
