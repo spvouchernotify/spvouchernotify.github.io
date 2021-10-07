@@ -71,6 +71,8 @@
               var finish = 0;
               var reroute = await GetRoute();
               var voucher_num=0;
+              var error_loadig=false;
+
               document.getElementById('loading-progress-text').innerHTML='正在取得列表．．．';
 
               fetch('https://spfarmwater' + reroute + '-' + '1' + '.herokuapp.com/vouchers/api/voucher/list/get?t='+new Date().getTime(), {
@@ -95,8 +97,7 @@
                   var promise_arr=[];
                   var page_arr=[];
                   var page_num=0;
-                  var error_loadig=false;
-
+                  
                   jo=jo['data'];
                   page_num=jo.length;
                   var jo_sep=[];
@@ -126,6 +127,7 @@
                                 //localStorage[site['url']]=JSON.stringify(j);
                                 resolve();
                              }).catch(function(e){
+                                error_loading=true;
                                 //localStorage.removeItem(site['url']);
                                 resolve();
                              });
