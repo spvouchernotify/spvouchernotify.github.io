@@ -6,7 +6,7 @@
       <meta name="description" content="">
       <meta name="author" content="sp">
       <meta name="Keywords" content="蝦蝦果園,蝦皮果園,澆水,站外澆水,蝦蝦果園澆水,站外澆水不求人,站外澆水小工具,站外澆水攻略">
-      <title>蝦皮折價券統整</title>
+      <title>蝦皮折價券(測試)</title>
       <!-- Bootstrap core CSS -->
       <link href="https://spfarmwater.github.io/bootstrap.min.css" rel="stylesheet">
       <!-- Favicons -->
@@ -33,6 +33,7 @@
       <script>
 
           var voucher_data=[];
+          
           //var sub = Math.floor(Math.random() * 2) + 1;
           var sub = 1;
           async function GetRoute() {
@@ -69,7 +70,8 @@
           async function loadvoucher() {
               var finish = 0;
               var reroute = await GetRoute();
-              document.getElementById('loading-progress-text').innerHTML='正在取得清單．．．';
+              var voucher_num=0;
+              document.getElementById('loading-progress-text').innerHTML='正在取得列表．．．';
 
               fetch('https://spfarmwater' + reroute + '-' + '1' + '.herokuapp.com/vouchers/api/voucher/list/get?t='+new Date().getTime(), {
                   body: null,
@@ -88,15 +90,25 @@
                   var count_progress_finish=0;
                   var C_HTML;
                   var update_time=jo['updatetime'];
-                  C_HTML='<h5>更新時間：'+new Date(update_time*1000)+'</h5><p></p><div class="accordion" id="accordionExample">';
+                  document.getElementById('loading-progress-text').innerHTML='正在取得活動頁面內容（共'+jo['data'].length+'個）．．．';
+                  C_HTML='<div class="accordion" id="accordionExample">';
                   var promise_arr=[];
                   var page_arr=[];
 
                   jo=jo['data'];
+                  var jo_sep=[];
+                  while(jo.length){
+                      jo_sep.push(jo.splice(0,10));
+                  }
 
-                  jo.forEach(function(site){
+                  jo_sep.forEach(function(site_arr){
                   	  promise_arr.push(new Promise((resolve, reject) => {
-                          json=fetch('https://spfarmwater' + reroute + '-' + '1' + '.herokuapp.com/vouchers/api/voucher/page/get?page='+site+'&t='+update_time, {
+                          var query_str='';
+                          for(var i=0;i<site_arr.length;i++){
+                              query_str=query_str+'&site'+i+'='+site_arr[i]['url'];
+                          }
+                          query_str=query_str+'&nums='+site_arr.length;
+                          json=fetch('https://spfarmwater' + reroute + '-' + '1' + '.herokuapp.com/multipagevouchers?t=' + update_time + query_str, {
                                 body: null,
                                 headers: {
                                     'content-type': 'application/json'
@@ -105,7 +117,9 @@
                              }).then(function(response) {
                                 return response.json();
                              }).then(function(j){
-                            	    page_arr.push(j);
+                                j.forEach(function(site){
+                             	    page_arr.push(site);
+                             	  });
                                 //localStorage[site['url']]=JSON.stringify(j);
                                 resolve();
                              }).catch(function(e){
@@ -115,7 +129,7 @@
                       }).then(() => {
                           count_progress_finish++;
                           var percent_progress=Math.round(count_progress_finish/(promise_arr.length+1)*90)+10;
-                          document.getElementById('loading-progress-text').innerHTML='取得 '+site+' ．．．';
+                          document.getElementById('loading-progress-text').innerHTML='取得頁面資料（共'+jo['data'].length+'個） ．．．';
                           document.getElementById('loading-progress').style.width=''+percent_progress+'%';
                           document.getElementById('loading-progress').innerHTML=''+percent_progress+'%';
                       }));//promise
@@ -140,6 +154,7 @@
                       ban_HTML=ban_HTML+'<th scope="col">折價券資料</th><th scope="col">折價券資訊</th><th scope="col">可折抵商品</th><th scope="col">詳細資訊</th></tr></thead>';
                       ban_HTML=ban_HTML+'<tbody>';
                       var v_index=0;
+                      voucher_num=voucher_num+json['voucher'].length;
                       json['voucher'].forEach(function(item){
                         vou_HTML='';
                         var i_arr=item['info'].split(',');
@@ -186,6 +201,7 @@
                       }
                   });
                   localStorage['origin']=JSON.stringify(jo);
+                  C_HTML='<h5>更新時間：'+new Date(update_time*1000)+'</h5><p></p><h5>當前活動頁面數：'+jo.length+'，當前折扣碼數量：'+voucher_num+'</h5><p></p>'+C_HTML;
                   C_ELEMENT.innerHTML=C_HTML+'</div>';
 
                  
