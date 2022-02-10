@@ -88,8 +88,9 @@ async function get_data(){
 
 	
 window.onload = async function() {
+    console.log('begin get data')
     await get_data();
-
+    console.log(treeData);
     update(root);
 }
 	
