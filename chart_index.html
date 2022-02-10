@@ -50,7 +50,7 @@ function recurv(name){
     }
     for(var i=0;i<arr.length;i++){
         var node = {
-          "name": title_map[arr[i]]==undefined?'蝦皮購物':title_map[arr[i]],
+          "name": title_map[arr[i]]==undefined? arr[i]:title_map[arr[i]],
           "url":arr[i],
 	        children: recurv(arr[i])
         }
@@ -161,8 +161,8 @@ function update(source) {
       .attr('class', 'node')
       .attr("transform", function(d) {
         return "translate(" + source.y0 + "," + source.x0 + ")";
-    })
-    .on('click', click);
+    });
+    
 
   // Add Circle for the nodes
   nodeEnter.append('circle')
@@ -170,22 +170,29 @@ function update(source) {
       .attr('r', 1e-6)
       .style("fill", function(d) {
           return d._children ? "lightsteelblue" : "#fff";
-      });
+      })
+      .on('click', click);
 
   // Add labels for the nodes
   nodeEnter.append('text')
       .attr("dy", ".35em")
       .attr("x", function(d) {
           //return d.children || d._children ? -13 : 13;
-          return 13
+          return 15
       })
       .attr("text-anchor", function(d) {
           //return d.children || d._children ? "end" : "start";
           return "start"
       })
-      .text(function(d) { return d.data.name; });
+      .text(function(d) { return d.data.name; })
+      .on('click', function(d) {
+           window.open('http://shopee.tw/m/'+d.data.url, '_blank');
+           // window.location = 'https://shopee.tw/m/'+d.data.url;
+       })
+      .style('font-size', '14px')
+      .style('cursor', 'pointer');
   
-  nodeEnter
+  /*nodeEnter
   .append("a")
    .attr("xlink:href", function(d) { return "https://shopee.tw/m/" +d.data.url; })
    .attr("target", "_blank")
@@ -200,7 +207,7 @@ function update(source) {
           .attr("height", 12)
           .style("fill", "lightsteelblue")
           .style("fill-opacity", .3)        // set to 1e-6 to hide          
-          ;
+          ;*/
 
   // UPDATE
   var nodeUpdate = nodeEnter.merge(node);
