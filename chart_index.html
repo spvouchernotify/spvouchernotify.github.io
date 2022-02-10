@@ -87,10 +87,17 @@ async function get_data(){
 }
 
 	
+
 window.onload = async function() {
     console.log('begin get data')
     await get_data();
     console.log(treeData);
+    // declares a tree layout and assigns the size
+    treemap = d3.tree().size([height, width]);
+    // Assigns parent, children, height, depth
+    root = d3.hierarchy(treeData, function(d) { return d.children; });
+    root.x0 = height / 2;
+    root.y0 = 0;
     update(root);
 }
 	
@@ -98,7 +105,6 @@ window.onload = async function() {
 var margin = {top: 20, right: 90, bottom: 30, left: 90},
     width = 3000 - margin.left - margin.right,
     height = 2000 - margin.top - margin.bottom;
-
 // append the svg object to the body of the page
 // appends a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
@@ -108,18 +114,12 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate("
           + margin.left + "," + margin.top + ")");
-
 var i = 0,
     duration = 750,
     root;
+var treemap;
+var root;
 
-// declares a tree layout and assigns the size
-var treemap = d3.tree().size([height, width]);
-
-// Assigns parent, children, height, depth
-root = d3.hierarchy(treeData, function(d) { return d.children; });
-root.x0 = height / 2;
-root.y0 = 0;
 
 // Collapse after the second level
 //root.children.forEach(collapse);
