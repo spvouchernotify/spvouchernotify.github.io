@@ -86,10 +86,13 @@ async function get_data(){
   treeData['children']=recurv('index');
 }
 
+	
+window.onload = async function() {
+    await get_data();
 
-await get_data();
-
-
+    update(root);
+}
+	
 // Set the dimensions and margins of the diagram
 var margin = {top: 20, right: 90, bottom: 30, left: 90},
     width = 3000 - margin.left - margin.right,
@@ -120,7 +123,6 @@ root.y0 = 0;
 // Collapse after the second level
 //root.children.forEach(collapse);
 
-update(root);
 
 // Collapse the node and all it's children
 function collapse(d) {
