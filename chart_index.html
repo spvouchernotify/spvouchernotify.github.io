@@ -94,6 +94,7 @@ window.onload = async function() {
     console.log(treeData);
     // declares a tree layout and assigns the size
     treemap = d3.tree().size([height, width]);
+
     // Assigns parent, children, height, depth
     root = d3.hierarchy(treeData, function(d) { return d.children; });
     root.x0 = height / 2;
@@ -105,6 +106,7 @@ window.onload = async function() {
 var margin = {top: 20, right: 90, bottom: 30, left: 90},
     width = 5000 - margin.left - margin.right,
     height = 4000 - margin.top - margin.bottom;
+
 // append the svg object to the body of the page
 // appends a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
@@ -114,9 +116,11 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate("
           + margin.left + "," + margin.top + ")");
+
 var i = 0,
     duration = 750,
     root;
+
 var treemap;
 var root;
 
@@ -144,7 +148,7 @@ function update(source) {
       links = treeData.descendants().slice(1);
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d){ d.y = d.depth * 730});
+  nodes.forEach(function(d){ d.y = d.depth * 750});
 
   // ****************** Nodes section ***************************
 
@@ -172,11 +176,12 @@ function update(source) {
   nodeEnter.append('text')
       .attr("dy", ".35em")
       .attr("x", function(d) {
-          return d.children || d._children ? -13 : 13;
+          //return d.children || d._children ? -13 : 13;
+          return 13
       })
       .attr("text-anchor", function(d) {
-          return d.children || d._children ? "end" : "start";
-          //return "start"
+          //return d.children || d._children ? "end" : "start";
+          return "start"
       })
       .text(function(d) { return d.data.name; });
   
@@ -190,7 +195,7 @@ function update(source) {
       .append("rect")
           .attr("class", "clickable")
           .attr("y", -6)
-          .attr("x", function (d) { return d.children || d._children ? -200 : 10; })
+          .attr("x", function (d) { return 15;return d.children || d._children ? -200 : 10; })
           .attr("width", function(d){return d.data.name.length<12?d.data.name.length*12:d.data.name.length*10}) //2*4.5)
           .attr("height", 12)
           .style("fill", "lightsteelblue")
