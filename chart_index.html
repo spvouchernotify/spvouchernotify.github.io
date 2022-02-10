@@ -26,7 +26,8 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
 <script>
-  
+
+var depth=0;
 var treeData={"name": "Index page"};
 
 async function GetRoute() {
@@ -41,10 +42,12 @@ async function GetRoute() {
 var url_map={};
 var title_map={};
   
-function recurv(name){
+function recurv(name,d){
     var rec=[];
     var arr=url_map[name];
-    
+    if(depth<d){
+      depth=d;
+    }
     if(arr==undefined){
         return [];
     }
@@ -52,7 +55,7 @@ function recurv(name){
         var node = {
           "name": title_map[arr[i]]==undefined? arr[i]:title_map[arr[i]],
           "url":arr[i],
-	        children: recurv(arr[i])
+	        children: recurv(arr[i],d+1)
         }
         rec.push(node)
     }
@@ -83,7 +86,7 @@ async function get_data(){
   }).then(function(jo) {
       return jo[0];
   });
-  treeData['children']=recurv('index');
+  treeData['children']=recurv('index',1);
 }
 
 	
@@ -92,6 +95,15 @@ window.onload = async function() {
     console.log('begin get data')
     await get_data();
     console.log(treeData);
+    width = depth*750 - margin.left - margin.right,
+    
+     svg= d3.select("body").append("svg")
+    .attr("width", width + margin.right + margin.left)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate("
+          + margin.left + "," + margin.top + ")");
+
     // declares a tree layout and assigns the size
     treemap = d3.tree().size([height, width]);
 
@@ -104,18 +116,13 @@ window.onload = async function() {
 	
 // Set the dimensions and margins of the diagram
 var margin = {top: 20, right: 90, bottom: 30, left: 90},
-    width = 5000 - margin.left - margin.right,
-    height = 4000 - margin.top - margin.bottom;
+    width = 0,
+    height = 5000 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 // appends a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.right + margin.left)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate("
-          + margin.left + "," + margin.top + ")");
+var svg;
 
 var i = 0,
     duration = 750,
