@@ -28,7 +28,7 @@
 <script>
 
 var depth=0;
-var treeData={"name": "Index page"};
+var treeData={"name": "首頁","url":"https://shopee.tw"};
 
 async function GetRoute() {
     return await fetch('https://spvouchernotify.github.io/empty.html?t=' + new Date().getTime()).then(function(response) {
@@ -54,7 +54,7 @@ function recurv(name,d){
     for(var i=0;i<arr.length;i++){
         var node = {
           "name": title_map[arr[i]]==undefined? arr[i]:title_map[arr[i]],
-          "url":arr[i],
+          "url":arr[i]=='landingpage_sys'?'https://shopee.tw/campaigns/':arr[i],
 	        children: recurv(arr[i],d+1)
         }
         rec.push(node)
@@ -86,7 +86,7 @@ async function get_data(){
   }).then(function(jo) {
       return jo[0];
   });
-  treeData['children']=recurv('index',1);
+  treeData['children']=recurv('index_sys',1);
 }
 
 	
@@ -193,7 +193,7 @@ function update(source) {
       })
       .text(function(d) { return d.data.name; })
       .on('click', function(d) {
-           window.open('http://shopee.tw/m/'+d.data.url, '_blank');
+           window.open(d.data.url.indexOf('https')==-1?'http://shopee.tw/m/'+d.data.url:d.data.url, '_blank');
            // window.location = 'https://shopee.tw/m/'+d.data.url;
        })
       .style('font-size', '14px')
