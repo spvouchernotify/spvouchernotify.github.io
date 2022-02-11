@@ -31,7 +31,7 @@ div.tooltip {
 </style>
 
 <body>
-
+網頁分佈地圖
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
@@ -74,7 +74,7 @@ function recurv(name,d){
 
 async function get_data(){
   var reroute = await GetRoute();
-  url_map=await fetch('https://spfarmwater' + reroute + '-' + '1' + '.herokuapp.com/vouchers/api/voucher/page/batch/get?t=12345&site0=url_map&nums=1&t='+new Date().getTime(), {
+  url_map=await fetch('https://spfarmwater' + reroute + '-' + '1' + '.herokuapp.com/vouchers/api/voucher/page/batch/get?&site0=url_map&nums=1&t='+new Date().getTime(), {
       body: null,
       headers: {
           'content-type': 'application/json'
@@ -85,7 +85,7 @@ async function get_data(){
   }).then(function(jo) {
       return jo[0];
   });
-  title_map=await fetch('https://spfarmwater' + reroute + '-' + '1' + '.herokuapp.com/vouchers/api/voucher/page/batch/get?t=12345&site0=url_map_title&nums=1&t='+new Date().getTime(), {
+  title_map=await fetch('https://spfarmwater' + reroute + '-' + '1' + '.herokuapp.com/vouchers/api/voucher/page/batch/get?&site0=url_map_title&nums=1&t='+new Date().getTime(), {
       body: null,
       headers: {
           'content-type': 'application/json'
@@ -210,9 +210,10 @@ function update(source) {
       .on('click', function(d) {
            window.open(d.data.url.indexOf('https')==-1?'http://shopee.tw/m/'+d.data.url:d.data.url, '_blank');
            // window.location = 'https://shopee.tw/m/'+d.data.url;
-       }).on("mouseover", mouseover)
-        .on("mousemove", function(d){mousemove(d);})
-        .on("mouseout", mouseout)
+       })
+       //.on("mouseover", mouseover)
+       // .on("mousemove", function(d){mousemove(d);})
+       // .on("mouseout", mouseout)
       .style('font-size', '18px')
       .style('cursor', 'pointer');
   
