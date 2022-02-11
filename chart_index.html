@@ -95,7 +95,7 @@ window.onload = async function() {
     console.log('begin get data')
     await get_data();
     console.log(treeData);
-    width = depth*750 - margin.left - margin.right,
+    width = depth*500 - margin.left - margin.right,
     
      svg= d3.select("body").append("svg")
     .attr("width", width + margin.right + margin.left)
@@ -155,7 +155,7 @@ function update(source) {
       links = treeData.descendants().slice(1);
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d){ d.y = d.depth * 750});
+  nodes.forEach(function(d){ d.y = d.depth * 450});
 
   // ****************** Nodes section ***************************
 
@@ -191,12 +191,15 @@ function update(source) {
           //return d.children || d._children ? "end" : "start";
           return "start"
       })
-      .text(function(d) { return d.data.name; })
+      .text(function(d) {
+          return d.data.name.length>20 ? d.data.name.substring(0,20)+'...':d.data.name;
+      //return d.data.name; 
+      })
       .on('click', function(d) {
            window.open(d.data.url.indexOf('https')==-1?'http://shopee.tw/m/'+d.data.url:d.data.url, '_blank');
            // window.location = 'https://shopee.tw/m/'+d.data.url;
        })
-      .style('font-size', '14px')
+      .style('font-size', '16px')
       .style('cursor', 'pointer');
   
   /*nodeEnter
