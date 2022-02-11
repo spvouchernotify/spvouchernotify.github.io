@@ -4,12 +4,12 @@
 
 .node circle {
   fill: #fff;
-  stroke: steelblue;
+  stroke: #ff6600;
   stroke-width: 3px;
 }
 
 .node text {
-  font: 12px sans-serif;
+  font: 18px sans-serif;
 }
 
 .link {
@@ -20,12 +20,14 @@
 
 div.tooltip {
         position: absolute;
-        width: auto;
+        
+        max-width: 200px;
         height: auto;
         padding: 2px;
-        background: #ffff99;
+        background: #ffb380;
         border: solid 1px #aaa;
         border-radius: 8px;
+        word-wrap:break-word;
     }
 
 </style>
@@ -178,7 +180,10 @@ function update(source) {
       .attr('class', 'node')
       .attr("transform", function(d) {
         return "translate(" + source.y0 + "," + source.x0 + ")";
-    });
+    })
+    .on("mouseover", mouseover)
+        .on("mousemove", function(d){mousemove(d);})
+        .on("mouseout", mouseout);
     
 
   // Add Circle for the nodes
@@ -337,7 +342,7 @@ function mouseover(d) {
         .style("left", (d.y+120) + "px")
         .style("top", (d.x-20) + "px")
         .html(
-            d.data.name+"</br>"+d.data.url
+            d.data.name+"("+d.data.url+")"
         );
     if (d.parent) mouseover(d.parent);
 }
