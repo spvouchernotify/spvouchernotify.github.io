@@ -18,6 +18,16 @@
   stroke-width: 2px;
 }
 
+div.tooltip {
+        position: absolute;
+        width: auto;
+        height: auto;
+        padding: 2px;
+        background: #ffff99;
+        border: solid 1px #aaa;
+        border-radius: 8px;
+    }
+
 </style>
 
 <body>
@@ -183,6 +193,8 @@ function update(source) {
   // Add labels for the nodes
   nodeEnter.append('text')
       .attr("dy", ".35em")
+      .attr("title",function(d){return d.data.name+'('+d.data.url+')';})
+      .attr("class",'visible')
       .attr("x", function(d) {
           //return d.children || d._children ? -13 : 13;
           return 15
@@ -192,14 +204,16 @@ function update(source) {
           return "start"
       })
       .text(function(d) {
-          return d.data.name.length>20 ? d.data.name.substring(0,20)+'...':d.data.name;
+          return d.data.name.length>15 ? d.data.name.substring(0,15)+'...':d.data.name;
       //return d.data.name; 
       })
       .on('click', function(d) {
            window.open(d.data.url.indexOf('https')==-1?'http://shopee.tw/m/'+d.data.url:d.data.url, '_blank');
            // window.location = 'https://shopee.tw/m/'+d.data.url;
-       })
-      .style('font-size', '16px')
+       }).on("mouseover", mouseover)
+        .on("mousemove", function(d){mousemove(d);})
+        .on("mouseout", mouseout)
+      .style('font-size', '18px')
       .style('cursor', 'pointer');
   
   /*nodeEnter
@@ -314,6 +328,26 @@ function update(source) {
     update(d);
   }
 }
+
+function mouseover(d) {
+    var div = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 1)
+        .style("left", (d.y+120) + "px")
+        .style("top", (d.x-20) + "px")
+        .html(
+            d.data.name+"</br>"+d.data.url
+        );
+    if (d.parent) mouseover(d.parent);
+}
+function mousemove(d) {
+    d3.select("body").selectAll('div.tooltip').style("opacity", 1);
+}
+
+function mouseout(d) {
+    d3.select("body").selectAll('div.tooltip').remove();
+}
+
 </script>
   
 </body>
