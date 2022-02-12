@@ -34,13 +34,13 @@ div.tooltip {
 
 <body>
 <h3>網頁分佈地圖，點擊活動頁標題文字可開啟活動頁面內容（開新分頁）</h3>
-
+<h3>藍色標示此頁面無折扣碼，橘色則表示此頁面有折扣碼</h3>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
 <script>
 
 var depth=0;
-var treeData={"name": "首頁","url":"https://shopee.tw"};
+var treeData={"name": "首頁","url":"https://shopee.tw","voucher":0};
 
 async function GetRoute() {
     return await fetch('https://spvouchernotify.github.io/empty.html?t=' + new Date().getTime()).then(function(response) {
@@ -53,6 +53,7 @@ async function GetRoute() {
 
 var url_map={};
 var title_map={};
+var voucher_map={};
   
 function recurv(name,d){
     var rec=[];
@@ -67,9 +68,10 @@ function recurv(name,d){
         var node = {
           "name": title_map[arr[i]]==undefined? arr[i]:title_map[arr[i]],
           "url":arr[i]=='landingpage_sys'?'https://shopee.tw/campaigns/':arr[i],
+          "voucher":voucher_map[arr[i]]==undefined? 0:voucher_map[arr[i]],
 	        children: recurv(arr[i],d+1)
         }
-        rec.push(node)
+        rec.push(node);
     }
     return rec;
 }
@@ -88,6 +90,17 @@ async function get_data(){
       return jo[0];
   });
   title_map=await fetch('https://spfarmwater' + reroute + '-' + '1' + '.herokuapp.com/vouchers/api/voucher/page/batch/get?&site0=url_map_title&nums=1&t='+new Date().getTime(), {
+      body: null,
+      headers: {
+          'content-type': 'application/json'
+      },
+      method: 'GET',
+  }).then(function(response) {
+      return response.json();
+  }).then(function(jo) {
+      return jo[0];
+  });
+  voucher_map=await fetch('https://spfarmwater' + reroute + '-' + '1' + '.herokuapp.com/vouchers/api/voucher/page/batch/get?&site0=url_map_voucher&nums=1&t='+new Date().getTime(), {
       body: null,
       headers: {
           'content-type': 'application/json'
@@ -252,8 +265,17 @@ function update(source) {
   // Update the node attributes and style
   nodeUpdate.select('circle.node')
     .attr('r', 10)
-    .style("fill", function(d) {
-        return d._children ? "#ffb380" : "#fff";
+    .style("stroke",function(d){
+        return d.data.voucher==0?'#0066ff':'#ff6600';
+       // return '#3385ff';    // node line color 1
+    })
+    .style("fill", function(d) {// node fill color 1
+        if(d.data.voucher==0){
+            return d._children ? "#99c2ff" : "#fff";
+        }
+        else{
+            return d._children ? "#ffb380" : "#fff";
+        }
     })
     .attr('cursor', 'pointer');
 
@@ -342,7 +364,7 @@ function mouseover(d) {
         .style("left", (d.y+120) + "px")
         .style("top", (d.x-20) + "px")
         .html(
-            d.data.name+"("+d.data.url+")"
+            '['+d.data.voucher+']'+d.data.name+"("+d.data.url+")"
         );
     if (d.parent) mouseover(d.parent);
 }
