@@ -1,0 +1,41 @@
+  <style>
+
+.node circle {
+  fill: #fff;
+  stroke: #ff6600;
+  stroke-width: 3px;
+}
+
+.node text {
+  font: 18px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+
+div.tooltip {
+        position: absolute;
+        
+        max-width: 200px;
+        height: auto;
+        padding: 2px;
+        background: #ffb380;
+        border: solid 1px #aaa;
+        border-radius: 8px;
+        word-wrap:break-word;
+    }
+
+</style>
+<body>
+<h3>網頁分佈地圖，點擊活動頁標題文字可開啟活動頁面內容（開新分頁）</h3>
+<h3>藍色標示此頁面無折扣碼，橘色則表示此頁面有折扣碼</h3>
+<div class="hierarchy-container"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<script src="chart_indented.js"></script>
+
+  
+</body>
