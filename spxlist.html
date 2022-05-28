@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-TW">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+      <meta name="description" content="">
+      <meta name="author" content="sp">
+      <meta name="Keywords" content="蝦蝦果園,蝦皮果園,澆水,站外澆水,蝦蝦果園澆水,站外澆水不求人,站外澆水小工具,站外澆水攻略">
+      <title>蝦皮店到店列表</title>
+      <!-- Bootstrap core CSS -->
+      <link href="https://spvouchernotify.github.io/bootstrap.min.css" rel="stylesheet">
+      <!-- Favicons -->
+      <link rel="icon" href="https://cf.shopee.tw/file/4760f74ce2403a5e161cb95f37e23f16">
+      <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
+      <meta name="theme-color" content="#FCCC04">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XQ2PRRMC51"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XQ2PRRMC51');
+</script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://spvouchernotify.github.io/popper.min.js"></script>
+      <script src="spxlist.js"></script>
+      <script src="https://spvouchernotify.github.io/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.8.2/countUp.min.js"></script>
+      <script src="https://www.gstatic.com/charts/loader.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+      
+
+      
+   </head>
+   <body>
+      <main role="main">
+         <section class="jumbotron text-center">
+            <div class="container" style="max-width:500px">
+               
+               <h1 class="h3 mb-3 font-weight-normal">蝦皮店到店統整</h1>
+               
+               <p class="mt-2 text-muted">此網頁將蝦皮官方店到店資訊列出來，包含未開放即將開放資料。本資料僅供參考用，實際資料以官方公佈為準。</p>
+               <br class="mt-2 text-muted">如果需要折價券消息通知功能<a href="voucherindex.html">請點這裡</a>，若需要直播蝦幣通知功能<a href="liveindex.html">請點這裡</a>。</br>
+
+               <br class="mb-5 text-muted">＊底色紅色則表示此店面目前尚未開放</br>
+              
+              
+            </div>
+
+               <p></p>
+            <div class="container">
+               <div id="voucher-current">
+                  <div id="loading-progress-text"></div>
+                  <div class="progress bg-secondary">
+                     <div id="loading-progress" class="progress-bar progress-bar-striped active" role="progressbar"
+                          aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                        0%
+                     </div>
+                  </div>
+               </div>
+               <!--<h1 class="h5 mt-3 mb-3 font-weight-normal"><strong>當前開放種子</strong></h1>
+               <table class="table table-striped mb-5">
+                  <thead>
+                     <tr>
+                        <th scope="col">code</th>
+                        <th scope="col">商品名稱</th>
+                        <th scope="col">所需水量</th>
+                        <th scope="col">領取比率</th>
+                     </tr>
+                  </thead>
+                  <tbody id="seed-current">
+                     <tr>
+                        <td colspan="4" class="text-center">
+                           載入中,請稍後...
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+               <h1 class="h5 mt-3 mb-3 font-weight-normal"><strong>即將開放種子</strong></h1>
+               <table class="table table-striped mb-5">
+                  <thead>
+                     <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">商品名稱</th>
+                        <th scope="col">所需水量</th>
+                        <th scope="col">領取比率</th>
+                     </tr>
+                  </thead>
+                  <tbody id="seed-future">
+                     <tr>
+                        <td colspan="4" class="text-center">
+                           載入中,請稍後...
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+               <h1 class="h5 mt-3 mb-3 font-weight-normal"><strong>已領取完畢種子</strong></h1>
+               <table class="table table-striped mb-5">
+                  <thead>
+                     <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">商品名稱</th>
+                        <th scope="col">所需水量</th>
+                        <th scope="col">領取比率</th>
+                     </tr>
+                  </thead>
+                  <tbody id="seed-already">
+                     <tr>
+                        <td colspan="4" class="text-center">
+                           載入中,請稍後...
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+               <h1 class="h5 mt-3 mb-3 font-weight-normal"><strong>過去開放種子</strong></h1>
+               <table class="table table-striped mb-5">
+                  <thead>
+                     <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">商品名稱</th>
+                        <th scope="col">所需水量</th>
+                        <th scope="col">領取比率</th>
+                     </tr>
+                  </thead>
+                  <tbody id="seed-past">
+                     <tr>
+                        <td colspan="4" class="text-center">
+                           載入中,請稍後...
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>-->
+            </div>
+         </section>
+      </main>
+      <footer class="text-muted">
+         <div class="container">
+            <p></p>
+            <p></p>
+            <p class="float-right">
+               <a href="#">Back to top</a>
+            </p>
+            <p></p>
+            <p></p>
+         </div>
+      </footer>
+   </body>
+</html>
