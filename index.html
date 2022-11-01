@@ -31,7 +31,11 @@
       <script src="https://www.gstatic.com/charts/loader.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
       <script>
-         window.onload = function() {
+var prev_handler = window.onload;
+window.onload = function () {
+    if (prev_handler) {
+        prev_handler();
+    }
          bootbox.dialog({	
                  title: '公告',
                  message:'感謝各位的支持，因Heroku政策改變將終止提供伺服器的免費計畫服務，網站上的所有服務將停止運作(包含LINE服務通知)，造成您的不便敬請見諒。<p></p>heroku官方公告內容：<a href="https://blog.heroku.com/next-chapter">https://blog.heroku.com/next-chapter</a>',
@@ -43,7 +47,7 @@
                      }	
                  }	
              });
-         }
+         };
       </script>
 
       
