@@ -69,6 +69,9 @@
             GAObject = {}
             GAObject['event'] = 'server error link';
             dataLayer.push(GAObject);
+            GAObject = {}
+            GAObject['error'] = url;
+            dataLayer.push(GAObject);
             return;
           } else {
             document.getElementById('result-url').value = jo['url'];
