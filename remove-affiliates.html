@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-TW">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+      <meta name="description" content="">
+      <meta name="author" content="sp">
+
+      <title>蝦皮分潤連結拆解</title>
+      <!-- Bootstrap core CSS -->
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+      <!-- Favicons -->
+      <link rel="icon" href="https://cf.shopee.tw/file/38c0acf7ef5bf7b86542e1fbf1f3df2b">
+      <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
+      <meta name="theme-color" content="#FCCC04">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ 
+ <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V0MX2LC7R5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V0MX2LC7R5');
+</script>
+
+      
+      <script>
+function btn_click(){
+var url=document.getElementById('affiliates-link').value;
+if(url.indexOf('https://shope.ee')==-1){
+show_err('Not affiliate link.')
+return;
+}
+fetch("https://spdatamanager262.onrender.com/remove_aff", {
+  "headers": {
+    "content-type": "application/json"
+  },
+  "body": '{"url":"'+url+'"}',
+  "method": "POST"
+}).then(r=>r.json()).then(function(jo){
+   if(jo['error']!=undefined){
+     show_err(jo['error']);
+     return;
+   }
+   else{
+     document.getElementById('result-url').value=jo['url'];
+     document.getElementById('result-original-url').value=jo['original_url'];
+   }
+ //   console.log(jo['url']);
+ //   console.log(jo['original_url']);
+});
+}
+
+function copy_click(){
+  var copyText = document.getElementById("result-url");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(copyText.value);
+  console.log('copy',copyText.value);
+}
+
+function show_err(msg){
+Swal.fire({
+  icon: "error",
+  title: "Error",
+  allowOutsideClick:false,
+  text: msg
+});
+}
+      </script>
+   </head>
+   <body>
+
+      <main role="main">
+         <section class="jumbotron text-center">
+            <div class="container" style="max-width:500px">
+
+               <h1 class="h3 mb-3 font-weight-normal">蝦皮分潤連結去除</h1>
+               <label for="inputEmail" class="sr-only">輸入分潤連結(格式為https://shope.ee/xxxxxxxx)</label>
+               <input type="text" id="affiliates-link" class="form-control" placeholder="輸入分潤連結(格式為https://shope.ee/xxxxxxxx)" autofocus="">
+               <p></p>
+               <button class="btn btn-lg btn-primary btn-block" type="button" onclick="btn_click();" >送出</button>
+               <p class="mt-4 mb-3 text">原分潤連結：</p>
+               <input type="text" id="result-original-url" class="form-control" placeholder="" autofocus="" disabled="disabled">
+               <p class="mt-4 mb-3 text">去除分潤後連結：</p>
+               <input type="text" id="result-url" class="form-control" placeholder="" autofocus="" >
+               <p></p>
+               <button class="btn btn-lg btn-primary btn-block" type="button" onclick="copy_click();" >一鍵複製</button>
+               <p></p>
+               <p class="mt-5 mb-3 text-danger">本網站功能為蝦皮網頁分潤連進行簡易的去除，給使用者有個去除獲利後的乾淨網址來瀏覽</p>
+               <p class="mt-5 mb-3 text-muted">建議使用Chrome、Firefox、Safari瀏覽器來瀏覽可獲得最佳體驗</p>
+               <p class="mt-5 mb-3 text-muted">分潤連結格式為: https://shope.ee/xxxxxxxx</p>
+            </div>
+         </section>
+
+      </main>
+      <footer class="text-muted">
+         <div class="container">
+            <p></p>
+            <p></p>
+            <p class="float-right">
+               <a href="#">Back to top</a>
+            </p>
+            <p></p>
+            <p></p>
+         </div>
+      </footer>
+   </body>
+</html>
