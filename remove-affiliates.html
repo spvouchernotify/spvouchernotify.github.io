@@ -47,8 +47,14 @@
     <script>
       function btn_click() {
         var url = document.getElementById('affiliates-link').value;
+        GAObject = {}
+        GAObject['event'] = 'btn click';
+        dataLayer.push(GAObject);
         if (url.indexOf('https://shope.ee') == -1) {
-          show_err('Not affiliate link.')
+          show_err('Not affiliate link.');
+          GAObject = {}
+          GAObject['event'] = 'wrong link';
+          dataLayer.push(GAObject);
           return;
         }
         fetch("https://spdatamanager262.onrender.com/remove_aff", {
@@ -60,10 +66,16 @@
         }).then(r => r.json()).then(function(jo) {
           if (jo['error'] != undefined) {
             show_err(jo['error']);
+            GAObject = {}
+            GAObject['error'] = url;
+            dataLayer.push(GAObject);
             return;
           } else {
             document.getElementById('result-url').value = jo['url'];
             document.getElementById('result-original-url').value = jo['original_url'];
+            GAObject = {}
+            GAObject['event'] = 'generate success';
+            dataLayer.push(GAObject);
           }
           //   console.log(jo['url']);
           //   console.log(jo['original_url']);
@@ -76,6 +88,9 @@
         copyText.setSelectionRange(0, 99999);
         navigator.clipboard.writeText(copyText.value);
         console.log('copy', copyText.value);
+        GAObject = {}
+        GAObject['event'] = 'copy click';
+        dataLayer.push(GAObject);
       }
 
       function show_err(msg) {
