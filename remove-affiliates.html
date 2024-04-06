@@ -67,7 +67,7 @@
           if (jo['error'] != undefined) {
             show_err(jo['error']);
             GAObject = {}
-            GAObject['error'] = url;
+            GAObject['event'] = 'server error link';
             dataLayer.push(GAObject);
             return;
           } else {
