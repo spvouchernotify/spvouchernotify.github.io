@@ -9,7 +9,6 @@
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Favicons -->
-
     <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
     <meta name="theme-color" content="#FCCC04">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -74,6 +73,13 @@
             dataLayer.push(GAObject);
             return;
           } else {
+            if (jo['original_url'].indexOf('error_page') != -1) {
+              GAObject = {}
+              GAObject['event'] = 'not found link';
+              show_err('無此連結');
+              dataLayer.push(GAObject);
+              return;
+            }
             document.getElementById('result-url').value = jo['url'];
             document.getElementById('result-original-url').value = jo['original_url'];
             GAObject = {}
