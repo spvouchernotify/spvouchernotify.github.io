@@ -78,6 +78,7 @@
             document.getElementById('result-original-url').value = jo['original_url'];
             GAObject = {}
             GAObject['event'] = 'generate success';
+            show_success('成功產生');
             dataLayer.push(GAObject);
           }
           //   console.log(jo['url']);
@@ -93,6 +94,7 @@
         console.log('copy', copyText.value);
         GAObject = {}
         GAObject['event'] = 'copy click';
+        show_success('複製成功');
         dataLayer.push(GAObject);
       }
 
@@ -102,6 +104,15 @@
           title: "Error",
           allowOutsideClick: false,
           text: msg
+        });
+      }
+
+      function show_success(msg) {
+        Swal.fire({
+          icon: "success",
+          title: msg,
+          showConfirmButton: false,
+          timer: 1500
         });
       }
     </script>
